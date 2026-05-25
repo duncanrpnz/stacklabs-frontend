@@ -9,18 +9,18 @@ export default function About() {
             <h2>About StackLabs</h2>
             <p>
               StackLabs is based in Cambridge, Waikato and focused on the kind of work
-              that's hard to hand to a large agency: early-stage products where
+              that&apos;s hard to hand to a large agency: early-stage products where
               decisions matter and moving fast counts.
             </p>
             <p>
-              We're direct about what we think. If an idea isn't ready to build,
-              we'll say so. If the scope needs to change mid-project, we'll talk
+              We&apos;re direct about what we think. If an idea isn&apos;t ready to build,
+              we&apos;ll say so. If the scope needs to change mid-project, we&apos;ll talk
               about it early. The goal is always to ship something that works,
               not something that looked good in a proposal.
             </p>
             <p>
               We keep the team small on purpose. You work with senior people, not
-              a junior who's been handed your project after the sales call.
+              a junior who&apos;s been handed your project after the sales call.
             </p>
           </div>
         </Reveal>
@@ -37,8 +37,8 @@ export default function About() {
             <div className="aside-block">
               <h3>Not the right fit</h3>
               <p>
-                Projects where the spec changes weekly and there's no decision
-                maker. We're not the right choice if you need 10 developers next
+                Projects where the spec changes weekly and there&apos;s no decision
+                maker. We&apos;re not the right choice if you need 10 developers next
                 month.
               </p>
             </div>

@@ -1,14 +1,18 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, ReactNode } from "react";
 
 interface RevealProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   delay?: number;
 }
 
-export default function Reveal({ children, className, delay = 0 }: RevealProps) {
+export default function Reveal({
+  children,
+  className,
+  delay = 0,
+}: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,7 +28,7 @@ export default function Reveal({ children, className, delay = 0 }: RevealProps) 
           observer.unobserve(el);
         }
       },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
     );
 
     observer.observe(el);
