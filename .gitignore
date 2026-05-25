@@ -1,0 +1,9 @@
+node_modules
+.next
+
+
+
+
+
+.DS_Storeyarn-error.log*yarn-debug.log*npm-debug.log*nout
+ndev
