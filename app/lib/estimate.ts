@@ -169,8 +169,8 @@ figures.`,
 const InternalEstimateSchema = z.object({
   priceRangeNzd: z
     .string()
-    .describe('Suggested price to charge the client, in NZD, e.g. "$18,000 – $28,000".'),
-  effort: z.string().describe('Rough build effort, e.g. "20–30 dev days" or "5–7 weeks".'),
+    .describe('Suggested price to charge the client for the base scope, in NZD, e.g. "$5,000 – $7,500".'),
+  effort: z.string().describe('Rough build effort, e.g. "~40 hours (about 1 week)" or "3–4 weeks".'),
   rationale: z.string().describe("2–4 sentences on what is driving the number."),
   risks: z.array(z.string()).describe("2–3 things that could push the price up or add risk."),
   confidence: z.enum(["Low", "Medium", "High"]),
@@ -183,10 +183,10 @@ export async function generateInternalEstimate(
   budget: string,
   answers: QA[],
 ): Promise<InternalEstimate> {
-  const dayRate = process.env.STACKLABS_DAY_RATE_NZD;
-  const pricingBasis = dayRate
-    ? `Base your numbers on a blended day rate of about NZD $${dayRate} per day multiplied by your estimate of the effort, plus sensible padding for unknowns, project management, and revisions.`
-    : `Base your numbers on typical rates for a small, senior New Zealand software studio, plus sensible padding for unknowns, project management, and revisions.`;
+  const hourlyRate = process.env.STACKLABS_HOURLY_RATE_NZD;
+  const rateBasis = hourlyRate
+    ? `Price = your estimated effort in hours × a blended rate of NZD $${hourlyRate}/hour. Assume ~40 working hours per week.`
+    : `Base the price on your estimated effort and typical rates for a small, senior New Zealand software studio.`;
 
   const message = await anthropic().messages.parse({
     model: MODEL,
@@ -195,7 +195,24 @@ export async function generateInternalEstimate(
     system: `${STUDIO_VOICE}
 
 You are pricing a build internally for StackLabs. This is for StackLabs' eyes only — the client will
-NEVER see it — so be candid, realistic, and commercial. ${pricingBasis}`,
+NEVER see it — so be candid, realistic, and commercial.
+
+How to price:
+- ${rateBasis}
+- Estimate effort realistically for ONE senior developer using modern, managed tooling (e.g. Expo /
+  React Native for cross-platform mobile, a managed backend like Supabase or Firebase). Do not
+  over-count boilerplate — auth, storage, and deployment are largely solved by these tools.
+- Price ONLY the base scope as described. Add modest padding for project management and a round of
+  revisions, but do NOT inflate the headline for worst-case scope creep or things they didn't ask for.
+- Put scope creep, app-store onboarding, and future-proofing in "risks" as potential upside — never
+  bake them into the base price.
+- For single-user, personal, or "just to test" builds, do NOT assume login/account systems,
+  multi-device sync, or App Store / Play Store publishing unless they actually asked for it. Assume
+  the leanest viable delivery.
+
+Calibration anchor: a simple single-user, online-only mobile app (e.g. a personal notes app, plain
+CRUD, no extras) is about one week of work (~40 hours). Use that to sanity-check your effort — if you
+land far above it for a similarly simple brief, reconsider.`,
     output_config: { format: zodOutputFormat(InternalEstimateSchema) },
     messages: [
       {
@@ -212,9 +229,10 @@ Budget the client gave: ${budget || "Not provided"}
 Their answers to the clarifying questions:
 ${qaBlock(answers)}
 
-Give a realistic NZD price range to charge, the build effort it implies, what is driving the number,
-and the main risks that could move it. Factor in their stated budget where relevant, but base the
-price on the actual work — say so if their budget looks unrealistic for what they want.`,
+Give a realistic NZD price range to charge for the base scope, the build effort it implies, what is
+driving the number, and the main risks that could move it (as upside, kept out of the headline).
+Factor in their stated budget where relevant, but base the price on the actual work — say so if their
+budget looks unrealistic for what they want.`,
       },
     ],
   });
