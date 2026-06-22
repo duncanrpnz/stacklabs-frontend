@@ -7,3 +7,8 @@ node_modules
 
 .DS_Storeyarn-error.log*yarn-debug.log*npm-debug.log*nout
 ndev
+
+# env files
+.env
+.env.local
+.env*.local
