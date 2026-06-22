@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -8,10 +9,10 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <a href="#home" className="brand">
+        <Link href="/#home" className="brand">
           <span className="brand-stack">Stack</span>
           <span className="brand-labs">Labs</span>
-        </a>
+        </Link>
         <button
           className="nav-toggle"
           aria-label="Toggle navigation"
@@ -25,18 +26,18 @@ export default function Header() {
           className={`site-nav${open ? " open" : ""}`}
           aria-label="Main navigation"
         >
-          <a href="#services" onClick={() => setOpen(false)}>
+          <Link href="/#services" onClick={() => setOpen(false)}>
             Services
-          </a>
-          <a href="#process" onClick={() => setOpen(false)}>
+          </Link>
+          <Link href="/#process" onClick={() => setOpen(false)}>
             Process
-          </a>
-          <a href="#about" onClick={() => setOpen(false)}>
+          </Link>
+          <Link href="/#about" onClick={() => setOpen(false)}>
             About
-          </a>
-          <a href="#contact" className="nav-cta" onClick={() => setOpen(false)}>
-            Get in touch
-          </a>
+          </Link>
+          <Link href="/estimate" className="nav-cta" onClick={() => setOpen(false)}>
+            Start a project
+          </Link>
         </nav>
       </div>
     </header>

@@ -1,0 +1,50 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\dunca\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  C:\Program Files\PowerShell\7;c:\Users\dunca\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\dunca\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Users\dunca\AppData\Local\Programs\Microsoft VS Code;C:\Python313\Scripts\;C:\Python313\;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python312\Scripts\;C:\Python312\;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files (x86)\Razer\ChromaBroadcast\bin;C:\Program Files\Razer\ChromaBroadcast\bin;C:\Program Files\Java\jdk-17;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\dunca\anaconda3;C:\Users\dunca\anaconda3\Scripts;C:\Users\dunca\anaconda3\Library\bin;C:\Program Files\Tesseract-OCR;C:\Users\dunca\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Users\dunca\anaconda3\Library\mingw-w64\bin;C:\Users\dunca\anaconda3\Library\usr\bin;C:\Users\dunca\AppData\Local\Microsoft\WindowsApps;C:\Users\dunca\.dotnet\tools;C:\Users\dunca\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\dunca\AppData\Roaming\npm;C:\Users\dunca\AppData\Local\Programs\Fiddler;C:\Users\dunca\go\bin;C:\Windows\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Amazon\AWSCLIV2\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\TDM-GCC-64\bin;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\tizen-studio\tools\certificate-manager;C:\Program Files\Sunshine;C:\Program Files\Sunshine\tools;C:\Program Files\Go\bin;C:\tools\poppler\bin;C:\Program Files\qpdf 12.2.0\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\PowerShell\7\;C:\Program Files\Tailscale\;C:\Program Files\Java\jdk-17\bin;C:\Users\dunca\AppData\Local\Android\Sdk\tools;C:\Users\dunca\AppData\Local\Microsoft\WindowsApps;C:\Users\dunca\.dotnet\tools;C:\Users\dunca\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\dunca\AppData\Local\Programs\Fiddler;C:\Users\dunca\.dotnet\tools;C:\Users\dunca\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\WebStorm 2023.3.3\bin;C:\Users\dunca\AppData\Local\GitHubDesktop\bin;C:\Program Files\heroku\bin;C:\Users\dunca\go\bin;C:\Users\dunca\AppData\Roaming\npm;C:\Users\dunca\.lmstudio\bin;
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  22.17.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'C:\Users\dunca\Desktop\Projects\StackLabs\node_modules\@next\swc-win32-x64-msvc\next-swc.win32-x64-msvc.node'
+
+npm manifest: 
+  {
+    "name": "stacklabs-site",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+      "dev": "next dev",
+      "build": "next build",
+      "start": "next start",
+      "lint": "next lint"
+    },
+    "dependencies": {
+      "next": "15.2.4",
+      "react": "18.2.0",
+      "react-dom": "18.2.0",
+      "resend": "^6.12.3"
+    },
+    "devDependencies": {
+      "@types/node": "20.14.2",
+      "@types/react": "18.2.48",
+      "@types/react-dom": "18.2.18",
+      "eslint": "8.57.0",
+      "eslint-config-next": "15.2.4",
+      "typescript": "5.5.4"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

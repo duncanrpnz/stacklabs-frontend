@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Hero() {
   return (
     <section className="hero" id="home">
@@ -14,11 +16,11 @@ export default function Hero() {
           who&apos;ll be straight with them about how to do it.
         </p>
         <div className="hero-actions">
-          <a className="btn btn-primary" href="#contact">
+          <Link className="btn btn-primary" href="/estimate">
+            Tell us about your project
+          </Link>
+          <a className="btn btn-ghost" href="#contact">
             Get in touch
-          </a>
-          <a className="btn btn-ghost" href="#services">
-            What we do
           </a>
         </div>
       </div>

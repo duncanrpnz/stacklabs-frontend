@@ -622,3 +622,237 @@ textarea:focus {
     grid-template-columns: 1fr;
   }
 }
+
+/* ─── Estimate / project intake ──────────────── */
+
+.estimate-page {
+  padding: 7rem 0 6rem;
+}
+.estimate-inner {
+  max-width: 660px;
+}
+.estimate-intro {
+  margin-bottom: 2.5rem;
+}
+.estimate-intro h1 {
+  margin: 0 0 1.25rem;
+}
+.estimate-lead {
+  font-size: clamp(1rem, 1.8vw, 1.12rem);
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.75;
+}
+
+.estimate-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+.estimate-step {
+  display: grid;
+  gap: 1.1rem;
+}
+.estimate-step h2 {
+  margin: 0;
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+}
+.estimate-step h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+}
+.estimate-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0;
+}
+.estimate-sub {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin: -0.4rem 0 0.4rem;
+}
+.estimate-hint {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.result-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.result-badge {
+  display: grid;
+  gap: 0.35rem;
+  background: var(--primary-dim);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+}
+.result-badge-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.result-badge-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.estimate-summary {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text);
+  margin: 0.4rem 0;
+}
+.result-block ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.4rem;
+}
+.result-block li {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.estimate-disclaimer {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin: 0.4rem 0;
+}
+.result-cta {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  margin-top: 0.4rem;
+  display: grid;
+  gap: 1rem;
+}
+.estimate-done .estimate-sub {
+  margin-top: 0.4rem;
+}
+
+@media (max-width: 720px) {
+  .estimate-page {
+    padding: 5rem 0 4rem;
+  }
+  .estimate-card {
+    padding: 1.5rem;
+  }
+}
+
+/* ─── Estimate: motion & loading ─────────────── */
+
+.estimate-card {
+  min-height: 360px;
+}
+.estimate-fade {
+  animation: estFadeUp 0.35s ease both;
+}
+@keyframes estFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.estimate-loading {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 1.2rem;
+  min-height: 320px;
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+.estimate-loading-msg {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  animation: estFadeIn 0.4s ease;
+}
+@keyframes estFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: estSpin 0.8s linear infinite;
+}
+@keyframes estSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .estimate-fade,
+  .estimate-loading-msg {
+    animation: none;
+  }
+  .spinner {
+    animation-duration: 1.6s;
+  }
+}
+
+/* ─── Estimate: honeypot & navigation ────────── */
+
+/* Honeypot — visually hidden, off the tab order, ignored by real users. */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.estimate-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+.estimate-actions .btn-primary {
+  flex: 1;
+}
+
+.estimate-back {
+  justify-self: start;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.estimate-back:hover {
+  color: var(--text);
+}

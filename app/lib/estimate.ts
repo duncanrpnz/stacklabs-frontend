@@ -1,0 +1,226 @@
+import Anthropic from "@anthropic-ai/sdk";
+import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
+import * as z from "zod/v4";
+
+// Lazily constructed so an unset ANTHROPIC_API_KEY never throws at import/build time.
+// The routes guard on the env var before calling in.
+let _client: Anthropic | null = null;
+function anthropic(): Anthropic {
+  if (!_client) _client = new Anthropic();
+  return _client;
+}
+
+const MODEL = "claude-opus-4-8";
+
+// Input caps — this is a public endpoint, so keep payloads sane.
+export const LIMITS = {
+  project: 4000,
+  budget: 200,
+  answer: 2000,
+} as const;
+
+// Shared studio identity and voice.
+const STUDIO_VOICE = `You work for StackLabs, a small software development studio in Cambridge, New
+Zealand. StackLabs works with founders and growing teams to build real software. Services: Rapid
+Prototyping, Prototype to Production, Product Strategy, and Technical Leadership.
+
+Voice: direct, plain-English, no fluff, no hype. Honest about trade-offs. New Zealand spelling.`;
+
+// Everything produced under this prompt is shown to the visitor, so it speaks to them directly.
+const PUBLIC_SYSTEM = `${STUDIO_VOICE}
+
+You are the project intake assistant. Everything you write here is shown directly to the visitor who
+filled in the form — the person whose project this is. Address them directly as "you" and "your".
+Never refer to them in the third person ("the prospect", "the client", "the user"). Never invent
+specific dollar figures or quote prices.`;
+
+// How we describe scope to visitors. The model maps a project onto one of these.
+const SIZE_TIERS = `Size tiers:
+- Small: a focused prototype or a single, well-defined feature. Typically ~2–5 weeks.
+- Medium: a complete product or app with several features and a few integrations. Typically ~6–12 weeks.
+- Large: a complex, multi-part system with multiple integrations or scale requirements. Typically 3+ months.`;
+
+// ---------- Step 1: clarifying questions (shown to the visitor) ----------
+
+const QuestionsSchema = z.object({
+  questions: z
+    .array(
+      z.object({
+        question: z.string(),
+        hint: z.string(),
+      }),
+    )
+    .describe("Exactly 4 clarifying questions."),
+});
+
+export type Questions = z.infer<typeof QuestionsSchema>;
+
+export async function generateQuestions(project: string, budget: string): Promise<Questions> {
+  const message = await anthropic().messages.parse({
+    model: MODEL,
+    max_tokens: 2000,
+    thinking: { type: "adaptive" },
+    system: PUBLIC_SYSTEM,
+    output_config: { format: zodOutputFormat(QuestionsSchema) },
+    messages: [
+      {
+        role: "user",
+        content: `Someone has started a project enquiry on the StackLabs site.
+
+Their project description:
+"""
+${project}
+"""
+
+Budget they gave: ${budget || "Not provided"}
+
+Write EXACTLY 4 concise clarifying questions, addressed directly to them ("you"), that would help you
+scope this work and give a rough size estimate. Make them specific to their project, not generic. Keep
+them easy for a non-technical founder to answer. For each question include a short "hint" (one sentence,
+also addressed to them) on why it matters or what kind of answer helps.`,
+      },
+    ],
+  });
+
+  if (!message.parsed_output) {
+    throw new Error("Model did not return parseable questions");
+  }
+  return message.parsed_output;
+}
+
+// ---------- Step 2: summary + estimate (shown to the visitor) ----------
+
+const EstimateSchema = z.object({
+  summary: z
+    .string()
+    .describe(
+      'A plain-English summary written directly to the reader using "you" (e.g. "You\'re looking to build…"), 2–4 sentences.',
+    ),
+  sizeTier: z.enum(["Small", "Medium", "Large"]),
+  timeline: z.string().describe('A rough timeline range, e.g. "6–10 weeks".'),
+  keyConsiderations: z
+    .array(z.string())
+    .describe("3 short bullets on the main things that will drive scope or risk."),
+  assumptions: z
+    .array(z.string())
+    .describe("2–3 assumptions made to produce this estimate."),
+  recommendedNextStep: z
+    .string()
+    .describe("One sentence on the suggested next step with StackLabs, addressed to the reader."),
+});
+
+export type Estimate = z.infer<typeof EstimateSchema>;
+
+export interface QA {
+  question: string;
+  answer: string;
+}
+
+function qaBlock(answers: QA[]): string {
+  return answers
+    .map((qa, i) => `Q${i + 1}: ${qa.question}\nA${i + 1}: ${qa.answer || "(no answer)"}`)
+    .join("\n\n");
+}
+
+export async function generateEstimate(
+  project: string,
+  budget: string,
+  answers: QA[],
+): Promise<Estimate> {
+  const message = await anthropic().messages.parse({
+    model: MODEL,
+    max_tokens: 2000,
+    thinking: { type: "adaptive" },
+    system: `${PUBLIC_SYSTEM}\n\n${SIZE_TIERS}`,
+    output_config: { format: zodOutputFormat(EstimateSchema) },
+    messages: [
+      {
+        role: "user",
+        content: `Produce a rough scoping estimate from this enquiry.
+
+Their project description:
+"""
+${project}
+"""
+
+Budget they gave: ${budget || "Not provided"}
+
+Their answers to your clarifying questions:
+${qaBlock(answers)}
+
+Summarise what they want to build, written directly to them ("You're looking to build…"), then map it
+to a size tier and a rough timeline range. This is an early, rough estimate to set expectations before
+a real conversation — base it on what they told you and state your assumptions. Do NOT give dollar
+figures.`,
+      },
+    ],
+  });
+
+  if (!message.parsed_output) {
+    throw new Error("Model did not return a parseable estimate");
+  }
+  return message.parsed_output;
+}
+
+// ---------- Internal: price to charge (SERVER-ONLY — never returned to the browser) ----------
+// This is generated server-side in the lead route and placed only into the email to StackLabs.
+// It must never appear in any HTTP response to the client.
+
+const InternalEstimateSchema = z.object({
+  priceRangeNzd: z
+    .string()
+    .describe('Suggested price to charge the client, in NZD, e.g. "$18,000 – $28,000".'),
+  effort: z.string().describe('Rough build effort, e.g. "20–30 dev days" or "5–7 weeks".'),
+  rationale: z.string().describe("2–4 sentences on what is driving the number."),
+  risks: z.array(z.string()).describe("2–3 things that could push the price up or add risk."),
+  confidence: z.enum(["Low", "Medium", "High"]),
+});
+
+export type InternalEstimate = z.infer<typeof InternalEstimateSchema>;
+
+export async function generateInternalEstimate(
+  project: string,
+  budget: string,
+  answers: QA[],
+): Promise<InternalEstimate> {
+  const dayRate = process.env.STACKLABS_DAY_RATE_NZD;
+  const pricingBasis = dayRate
+    ? `Base your numbers on a blended day rate of about NZD $${dayRate} per day multiplied by your estimate of the effort, plus sensible padding for unknowns, project management, and revisions.`
+    : `Base your numbers on typical rates for a small, senior New Zealand software studio, plus sensible padding for unknowns, project management, and revisions.`;
+
+  const message = await anthropic().messages.parse({
+    model: MODEL,
+    max_tokens: 2000,
+    thinking: { type: "adaptive" },
+    system: `${STUDIO_VOICE}
+
+You are pricing a build internally for StackLabs. This is for StackLabs' eyes only — the client will
+NEVER see it — so be candid, realistic, and commercial. ${pricingBasis}`,
+    output_config: { format: zodOutputFormat(InternalEstimateSchema) },
+    messages: [
+      {
+        role: "user",
+        content: `Work out a rough price StackLabs could charge to build this.
+
+Project description:
+"""
+${project}
+"""
+
+Budget the client gave: ${budget || "Not provided"}
+
+Their answers to the clarifying questions:
+${qaBlock(answers)}
+
+Give a realistic NZD price range to charge, the build effort it implies, what is driving the number,
+and the main risks that could move it. Factor in their stated budget where relevant, but base the
+price on the actual work — say so if their budget looks unrealistic for what they want.`,
+      },
+    ],
+  });
+
+  if (!message.parsed_output) {
+    throw new Error("Model did not return a parseable internal estimate");
+  }
+  return message.parsed_output;
+}
