@@ -177,7 +177,7 @@ export async function POST(req: Request) {
   let internal: InternalEstimate | null = null;
   if (process.env.ANTHROPIC_API_KEY && (await tryConsumeGlobalAi())) {
     try {
-      internal = await generateInternalEstimate(project, budget, answers);
+      internal = await generateInternalEstimate(project, budget, answers, estimate);
     } catch (err) {
       console.error("generateInternalEstimate failed:", err);
     }

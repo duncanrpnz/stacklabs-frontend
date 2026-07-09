@@ -41,6 +41,19 @@ const SIZE_TIERS = `Size tiers:
 - Medium: a complete product or app with several features and a few integrations. Typically ~6–12 weeks.
 - Large: a complex, multi-part system with multiple integrations or scale requirements. Typically 3+ months.`;
 
+// How StackLabs actually delivers. Shared by the public estimate and the internal pricing prompt so
+// both size the same project the same way — if only one prompt has this, their tiers drift apart.
+const DELIVERY_CALIBRATION = `How StackLabs delivers (assume this when sizing):
+- ONE senior developer using modern, managed tooling (e.g. Expo / React Native for cross-platform
+  mobile, a managed backend like Supabase or Firebase). Do not over-count boilerplate — auth,
+  storage, and deployment are largely solved by these tools.
+- For single-user, personal, or "just to test" builds, do NOT assume login/account systems,
+  multi-device sync, or App Store / Play Store publishing unless they actually asked for it. Assume
+  the leanest viable delivery.
+- Calibration anchor: a simple single-user, online-only mobile app (e.g. a personal notes app, plain
+  CRUD, no extras) is about one week of work (~40 hours). Sanity-check your sizing against that — if
+  you land far above it for a similarly simple brief, reconsider.`;
+
 // ---------- Step 1: clarifying questions (shown to the visitor) ----------
 
 const QuestionsSchema = z.object({
@@ -132,7 +145,7 @@ export async function generateEstimate(
     model: MODEL,
     max_tokens: 2000,
     thinking: { type: "adaptive" },
-    system: `${PUBLIC_SYSTEM}\n\n${SIZE_TIERS}`,
+    system: `${PUBLIC_SYSTEM}\n\n${SIZE_TIERS}\n\n${DELIVERY_CALIBRATION}`,
     output_config: { format: zodOutputFormat(EstimateSchema) },
     messages: [
       {
@@ -183,6 +196,7 @@ export async function generateInternalEstimate(
   project: string,
   budget: string,
   answers: QA[],
+  publicEstimate: Estimate,
 ): Promise<InternalEstimate> {
   const hourlyRate = process.env.STACKLABS_HOURLY_RATE_NZD;
   const rateBasis = hourlyRate
@@ -198,28 +212,25 @@ export async function generateInternalEstimate(
 You are pricing a build internally for StackLabs. This is for StackLabs' eyes only — the client will
 NEVER see it — so be candid, realistic, and commercial.
 
+${DELIVERY_CALIBRATION}
+
 How to price:
 - ${rateBasis}
-- Estimate effort realistically for ONE senior developer using modern, managed tooling (e.g. Expo /
-  React Native for cross-platform mobile, a managed backend like Supabase or Firebase). Do not
-  over-count boilerplate — auth, storage, and deployment are largely solved by these tools.
 - Price ONLY the base scope as described. Add modest padding for project management and a round of
   revisions, but do NOT inflate the headline for worst-case scope creep or things they didn't ask for.
 - Put scope creep, app-store onboarding, and future-proofing in "risks" as potential upside — never
   bake them into the base price.
-- For single-user, personal, or "just to test" builds, do NOT assume login/account systems,
-  multi-device sync, or App Store / Play Store publishing unless they actually asked for it. Assume
-  the leanest viable delivery.
 
-Calibration anchor: a simple single-user, online-only mobile app (e.g. a personal notes app, plain
-CRUD, no extras) is about one week of work (~40 hours). Use that to sanity-check your effort — if you
-land far above it for a similarly simple brief, reconsider.
+${SIZE_TIERS}
 
 Published price bands — these are public on stacklabs.co.nz, so the client may well have read them:
 ${priceBandsForPrompt()}
-Your suggested range should normally sit inside the published band for the project's size. If the
-honest number falls outside it, give the honest number anyway, but flag the mismatch with the
-published band in your rationale so StackLabs can handle it in the conversation.`,
+
+Consistency with what the client was told: the automated estimate already shown to the client is
+included in the enquiry below. Check your price against the published band for THAT tier. If your
+effort or price implies a different tier than the client saw, or falls outside the band for it, give
+the honest number anyway — but flag the mismatch as the FIRST thing in your rationale so StackLabs
+can address it when they reply.`,
     output_config: { format: zodOutputFormat(InternalEstimateSchema) },
     messages: [
       {
@@ -235,6 +246,8 @@ Budget the client gave: ${budget || "Not provided"}
 
 Their answers to the clarifying questions:
 ${qaBlock(answers)}
+
+The automated estimate the client has already been shown: ${publicEstimate.sizeTier} — ${publicEstimate.timeline}.
 
 Give a realistic NZD price range to charge for the base scope, the build effort it implies, what is
 driving the number, and the main risks that could move it (as upside, kept out of the headline).
