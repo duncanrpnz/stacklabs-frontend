@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import * as z from "zod/v4";
+import { priceBandsForPrompt } from "./pricing";
 
 // Lazily constructed so an unset ANTHROPIC_API_KEY never throws at import/build time.
 // The routes guard on the env var before calling in.
@@ -212,7 +213,13 @@ How to price:
 
 Calibration anchor: a simple single-user, online-only mobile app (e.g. a personal notes app, plain
 CRUD, no extras) is about one week of work (~40 hours). Use that to sanity-check your effort — if you
-land far above it for a similarly simple brief, reconsider.`,
+land far above it for a similarly simple brief, reconsider.
+
+Published price bands — these are public on stacklabs.co.nz, so the client may well have read them:
+${priceBandsForPrompt()}
+Your suggested range should normally sit inside the published band for the project's size. If the
+honest number falls outside it, give the honest number anyway, but flag the mismatch with the
+published band in your rationale so StackLabs can handle it in the conversation.`,
     output_config: { format: zodOutputFormat(InternalEstimateSchema) },
     messages: [
       {

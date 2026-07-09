@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { priceTiers } from "../lib/pricing";
 
 export const metadata: Metadata = {
   title: "How Much Does Custom Software Cost in NZ?",
@@ -9,34 +10,6 @@ export const metadata: Metadata = {
     "An honest guide to custom software and app development costs in New Zealand: typical price ranges, what actually drives the cost, and how to keep it down.",
   alternates: { canonical: "/how-much-does-software-cost" },
 };
-
-// Review these bands before publishing — they set price expectations for enquiries.
-const tiers = [
-  {
-    name: "Small",
-    scope: "A focused prototype or a single, well-defined feature",
-    timeline: "2–5 weeks",
-    range: "$8k – $30k NZD",
-    example:
-      "A working prototype of a booking tool, a customer portal MVP, or one substantial feature added to an existing system.",
-  },
-  {
-    name: "Medium",
-    scope: "A complete product or app with several features and a few integrations",
-    timeline: "6–12 weeks",
-    range: "$30k – $90k NZD",
-    example:
-      "A customer-facing web app with accounts, payments and an admin area, or a mobile app connected to your existing systems.",
-  },
-  {
-    name: "Large",
-    scope: "A complex, multi-part system with multiple integrations or scale requirements",
-    timeline: "3+ months",
-    range: "$90k+ NZD",
-    example:
-      "A platform with several user types, real-time features, third-party integrations, or serious compliance requirements.",
-  },
-];
 
 const drivers = [
   {
@@ -131,7 +104,7 @@ export default function CostGuidePage() {
             </div>
 
             <div className="cost-tiers">
-              {tiers.map((tier) => (
+              {priceTiers.map((tier) => (
                 <div className="cost-tier" key={tier.name}>
                   <div className="cost-tier-head">
                     <h3>{tier.name}</h3>
