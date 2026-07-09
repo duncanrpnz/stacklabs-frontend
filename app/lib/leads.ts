@@ -14,7 +14,7 @@ export interface LeadRecord {
 /**
  * Durable backup of every captured lead, independent of email delivery.
  * Stored newest-first in the "leads" Redis list (browse it in the Upstash
- * console). No-ops and never throws when Redis isn't configured — the email
+ * console). No-ops and never throws when Redis isn't configured - the email
  * stays the primary channel; this is the safety net.
  */
 export async function saveLead(lead: LeadRecord): Promise<void> {

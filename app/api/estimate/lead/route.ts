@@ -36,7 +36,7 @@ function internalBlock(internal: InternalEstimate | null) {
   if (!internal) {
     return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px;">
       <tr><td style="background:rgba(99,102,241,0.10);border:1px solid rgba(99,102,241,0.35);border-radius:10px;padding:18px 20px;">
-        <p style="margin:0;font-size:13px;line-height:1.6;color:#b6bdcc;">Internal price estimate could not be generated for this enquiry — work it out manually.</p>
+        <p style="margin:0;font-size:13px;line-height:1.6;color:#b6bdcc;">Internal price estimate could not be generated for this enquiry - work it out manually.</p>
       </td></tr></table>`;
   }
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px;">
@@ -85,7 +85,7 @@ function emailHtml(name: string, email: string, project: string, budget: string,
           <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:8px 0 28px;" />
 
           ${field("AI summary", esc(estimate.summary))}
-          ${field("Estimated size", `${esc(estimate.sizeTier)} — ${esc(estimate.timeline)}`)}
+          ${field("Estimated size", `${esc(estimate.sizeTier)} - ${esc(estimate.timeline)}`)}
           <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8892a4;">Key considerations</p>
           ${list(estimate.keyConsiderations)}
           <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8892a4;">Assumptions</p>
@@ -106,7 +106,7 @@ function emailHtml(name: string, email: string, project: string, budget: string,
 </body></html>`;
 }
 
-// Confirmation sent to the visitor. Public info only — never the internal price.
+// Confirmation sent to the visitor. Public info only - never the internal price.
 function confirmationHtml(name: string, estimate: Estimate) {
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Thanks from StackLabs</title></head>
@@ -118,7 +118,7 @@ function confirmationHtml(name: string, estimate: Estimate) {
           <span style="font-size:20px;font-weight:700;letter-spacing:-0.5px;color:#e8eaf0;"><span style="color:#6366f1;">Stack</span>Labs</span>
         </td></tr>
         <tr><td style="background:#111118;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px;">
-          <h1 style="margin:0 0 16px;font-size:22px;font-weight:700;color:#e8eaf0;letter-spacing:-0.4px;">Thanks, ${esc(name)} — we've got it.</h1>
+          <h1 style="margin:0 0 16px;font-size:22px;font-weight:700;color:#e8eaf0;letter-spacing:-0.4px;">Thanks, ${esc(name)} - we've got it.</h1>
           <p style="margin:0 0 24px;font-size:15px;line-height:1.7;color:#b6bdcc;">We've received your project details and the rough estimate below. We'll be in touch soon to talk it through and take it further.</p>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;">
             <tr><td style="background:rgba(99,102,241,0.10);border:1px solid rgba(99,102,241,0.30);border-radius:10px;padding:18px 20px;">
@@ -126,7 +126,7 @@ function confirmationHtml(name: string, estimate: Estimate) {
               <p style="margin:0;font-size:18px;font-weight:700;color:#ffffff;">${esc(estimate.sizeTier)} · ${esc(estimate.timeline)}</p>
             </td></tr>
           </table>
-          <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#8892a4;">This is a rough, automated estimate to set expectations — not a quote. Real numbers come after a proper conversation.</p>
+          <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#8892a4;">This is a rough, automated estimate to set expectations - not a quote. Real numbers come after a proper conversation.</p>
           <p style="margin:0;font-size:15px;line-height:1.7;color:#b6bdcc;">Anything to add in the meantime? Just reply to this email or reach us at <a href="mailto:hello@stacklabs.co.nz" style="color:#6366f1;text-decoration:none;">hello@stacklabs.co.nz</a>.</p>
         </td></tr>
         <tr><td style="padding-top:24px;">
@@ -163,7 +163,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
-  // Honeypot — pretend success so bots don't learn they were caught. No email, no save.
+  // Honeypot - pretend success so bots don't learn they were caught. No email, no save.
   if (honeypot) {
     return NextResponse.json({ success: true });
   }
@@ -172,7 +172,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
-  // Generate the internal price server-side. Never returned to the client — only emailed.
+  // Generate the internal price server-side. Never returned to the client - only emailed.
   // If it fails (no key / API error), still capture the lead rather than losing it.
   let internal: InternalEstimate | null = null;
   if (process.env.ANTHROPIC_API_KEY && (await tryConsumeGlobalAi())) {
@@ -187,17 +187,17 @@ export async function POST(req: Request) {
   await saveLead({ name, email, project, budget, answers, estimate, internal });
 
   const internalText = internal
-    ? `INTERNAL — not shown to the client
+    ? `INTERNAL - not shown to the client
 Suggested price: ${internal.priceRangeNzd}
 Effort: ${internal.effort} (${internal.confidence} confidence)
 Rationale: ${internal.rationale}
 Risks:
 ${internal.risks.map((r) => `- ${r}`).join("\n")}`
-    : `INTERNAL — price estimate could not be generated; work it out manually.`;
+    : `INTERNAL - price estimate could not be generated; work it out manually.`;
 
   const text = `Project enquiry from ${name} (${email})
 Budget: ${budget || "Not provided"}
-Estimated size: ${estimate.sizeTier} — ${estimate.timeline}
+Estimated size: ${estimate.sizeTier} - ${estimate.timeline}
 
 ${internalText}
 
@@ -224,15 +224,15 @@ ${estimate.summary}`;
     return NextResponse.json({ error: "Failed to send" }, { status: 500 });
   }
 
-  // Best-effort confirmation to the visitor — never block the lead on this.
+  // Best-effort confirmation to the visitor - never block the lead on this.
   try {
     await resend.emails.send({
       from: "StackLabs <noreply@stacklabs.co.nz>",
       to: email,
       replyTo: "hello@stacklabs.co.nz",
-      subject: "Thanks — we've got your project",
+      subject: "Thanks - we've got your project",
       html: confirmationHtml(name, estimate),
-      text: `Thanks, ${name} — we've got your project details and the rough estimate (${estimate.sizeTier}, ${estimate.timeline}). We'll be in touch soon.\n\nThis is a rough estimate, not a quote. Reply any time or reach us at hello@stacklabs.co.nz.\n\nStackLabs · stacklabs.co.nz`,
+      text: `Thanks, ${name} - we've got your project details and the rough estimate (${estimate.sizeTier}, ${estimate.timeline}). We'll be in touch soon.\n\nThis is a rough estimate, not a quote. Reply any time or reach us at hello@stacklabs.co.nz.\n\nStackLabs · stacklabs.co.nz`,
     });
   } catch (err) {
     console.error("Confirmation email failed:", err);

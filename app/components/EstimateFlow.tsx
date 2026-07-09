@@ -40,7 +40,7 @@ export default function EstimateFlow() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  // Honeypot — hidden from real users; bots that fill it are dropped server-side.
+  // Honeypot - hidden from real users; bots that fill it are dropped server-side.
   const [website, setWebsite] = useState("");
 
   // Cycle the loading copy so longer Opus calls feel alive (clamps on the last line).
@@ -201,7 +201,7 @@ export default function EstimateFlow() {
               <p className="estimate-eyebrow">Step 2 of 3</p>
               <h2>A few follow-up questions</h2>
               <p className="estimate-sub">
-                These help us scope things properly. Answer what you can — rough is fine.
+                These help us scope things properly. Answer what you can - rough is fine.
               </p>
               {questions.map((q, i) => (
                 <div className="form-group" key={i}>
@@ -290,7 +290,7 @@ export default function EstimateFlow() {
               )}
 
               <p className="estimate-disclaimer">
-                This is a rough, automated estimate to set expectations — not a quote. Real numbers
+                This is a rough, automated estimate to set expectations - not a quote. Real numbers
                 come after a proper conversation.
               </p>
 
@@ -345,7 +345,7 @@ export default function EstimateFlow() {
 
           {step === "done" && (
             <div className="estimate-step estimate-done">
-              <h2>Thanks — that&apos;s on its way.</h2>
+              <h2>Thanks - that&apos;s on its way.</h2>
               <p className="estimate-sub">
                 We&apos;ve got your project details and the estimate. We&apos;ll be in touch soon to
                 take it further. In the meantime you can reach us at{" "}

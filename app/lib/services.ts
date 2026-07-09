@@ -1,5 +1,5 @@
 // Single source of truth for the four services. Used by the homepage cards,
-// the /services/[slug] pages, and the sitemap — edit copy here, not in the pages.
+// the /services/[slug] pages, and the sitemap - edit copy here, not in the pages.
 
 export interface ServiceSection {
   heading: string;
@@ -36,20 +36,20 @@ export const services: Service[] = [
         heading: "What it is",
         paragraphs: [
           "A prototype is the smallest version of your product that can answer the question you actually have: will people use this? Will they pay for it? Does the workflow make sense outside your head?",
-          "We build it as real, working software — not a clickable mockup — so the feedback you get is feedback on the real thing. But we build it lean: one platform, managed infrastructure, and only the features needed to run the test.",
+          "We build it as real, working software - not a clickable mockup - so the feedback you get is feedback on the real thing. But we build it lean: one platform, managed infrastructure, and only the features needed to run the test.",
         ],
       },
       {
         heading: "How it works",
         paragraphs: [
           "We start with a short scoping conversation to agree on what the prototype needs to prove. Then we build in weekly increments, with something you can click on from the first week or two. You see progress as it happens and can steer while the cost of changing direction is still low.",
-          "At the end you own the code, and you have real evidence to decide what comes next — carry on to production, adjust the idea, or stop before spending more. All three are good outcomes.",
+          "At the end you own the code, and you have real evidence to decide what comes next - carry on to production, adjust the idea, or stop before spending more. All three are good outcomes.",
         ],
       },
       {
         heading: "Why prototype first",
         paragraphs: [
-          "Most software projects that go wrong don't fail on the code — they fail because the wrong thing got built. A prototype is the cheapest insurance against that. It also makes any production build that follows cheaper and better scoped, because the guesswork is gone.",
+          "Most software projects that go wrong don't fail on the code - they fail because the wrong thing got built. A prototype is the cheapest insurance against that. It also makes any production build that follows cheaper and better scoped, because the guesswork is gone.",
         ],
       },
     ],
@@ -85,14 +85,14 @@ export const services: Service[] = [
       {
         heading: "How it works",
         paragraphs: [
-          "If we built your prototype, we already know where the shortcuts are — we take stock together and agree what needs hardening, what needs rebuilding, and what's fine as it is. If someone else built it (or it started life in a no-code tool), we begin with a short technical review so the plan is grounded in what's actually there.",
+          "If we built your prototype, we already know where the shortcuts are - we take stock together and agree what needs hardening, what needs rebuilding, and what's fine as it is. If someone else built it (or it started life in a no-code tool), we begin with a short technical review so the plan is grounded in what's actually there.",
           "Then we work in the same weekly rhythm as a prototype build: visible progress, early conversations when scope needs to move, no surprises at the end.",
         ],
       },
       {
         heading: "What production-ready actually means",
         paragraphs: [
-          "It's a spectrum, not a checkbox. A tool used by five staff has different needs to a customer-facing app with payments. We're explicit about which level you're paying for and why, so you're not funding resilience you don't need — or missing resilience you do.",
+          "It's a spectrum, not a checkbox. A tool used by five staff has different needs to a customer-facing app with payments. We're explicit about which level you're paying for and why, so you're not funding resilience you don't need - or missing resilience you do.",
         ],
       },
     ],
@@ -113,7 +113,7 @@ export const services: Service[] = [
     title: "Product Strategy",
     metaTitle: "Product Strategy for Software Teams",
     metaDescription:
-      "StackLabs helps NZ founders and teams work out what to build next and why — so engineering effort goes into the work that actually moves the product forward.",
+      "StackLabs helps NZ founders and teams work out what to build next and why - so engineering effort goes into the work that actually moves the product forward.",
     card: "Sometimes the problem isn't the code, it's the roadmap. We help teams work out what to build next and why, so engineering effort goes toward work that actually matters.",
     lead: "Sometimes the problem isn't the code, it's the roadmap. We help you work out what to build next and why, so engineering effort goes into work that actually matters.",
     timeline: "From a one-off session to ongoing involvement",
@@ -121,14 +121,14 @@ export const services: Service[] = [
       {
         heading: "What it is",
         paragraphs: [
-          "Most teams don't have a shortage of ideas — they have a shortage of confidence about which idea to do first. Product strategy work is about turning a pile of possibilities into a sequenced plan with reasons attached.",
+          "Most teams don't have a shortage of ideas - they have a shortage of confidence about which idea to do first. Product strategy work is about turning a pile of possibilities into a sequenced plan with reasons attached.",
           "Because we build software ourselves, the advice stays honest about cost. A roadmap is only useful if each step on it is actually buildable in the time and budget you have.",
         ],
       },
       {
         heading: "How it works",
         paragraphs: [
-          "It usually starts with a working session: what you're trying to achieve commercially, what you've built so far, what's in the backlog, and what your users are actually doing. From there we help you cut the list, sequence it, and — just as important — write down what you're deliberately not doing and why.",
+          "It usually starts with a working session: what you're trying to achieve commercially, what you've built so far, what's in the backlog, and what your users are actually doing. From there we help you cut the list, sequence it, and - just as important - write down what you're deliberately not doing and why.",
           "Some clients need one session to get unstuck. Others keep us involved as a sounding board, revisiting the plan as real usage data comes in.",
         ],
       },
@@ -158,7 +158,7 @@ export const services: Service[] = [
       {
         heading: "What it is",
         paragraphs: [
-          "Plenty of businesses have developers — internal, contract or offshore — but nobody senior enough to make the calls that are expensive to get wrong: architecture, technology choices, hiring, and whether the work being delivered is actually good.",
+          "Plenty of businesses have developers - internal, contract or offshore - but nobody senior enough to make the calls that are expensive to get wrong: architecture, technology choices, hiring, and whether the work being delivered is actually good.",
           "We fill that gap as a fractional technical lead. You get senior judgement when decisions come up, without the cost of a full-time CTO you don't yet need.",
         ],
       },
@@ -166,7 +166,7 @@ export const services: Service[] = [
         heading: "How it works",
         paragraphs: [
           "The shape depends on the team. For some it's reviewing pull requests and holding a weekly technical check-in. For others it's owning the architecture, running the delivery process, and sitting in on hiring interviews. We agree the scope up front and adjust it as the team grows.",
-          "The goal is always to make ourselves less necessary over time — building the practices and, eventually, helping hire the people that let the team stand on its own.",
+          "The goal is always to make ourselves less necessary over time - building the practices and, eventually, helping hire the people that let the team stand on its own.",
         ],
       },
     ],

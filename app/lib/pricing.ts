@@ -1,4 +1,4 @@
-// Published price bands — single source of truth. Shown on the public cost
+// Published price bands - single source of truth. Shown on the public cost
 // guide AND fed to the internal pricing prompt in estimate.ts, so a change
 // here updates both. Review these roughly yearly.
 

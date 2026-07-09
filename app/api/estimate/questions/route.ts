@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
-  // Honeypot — a real user never fills the hidden "website" field.
+  // Honeypot - a real user never fills the hidden "website" field.
   if (honeypot) {
     return NextResponse.json({ error: "Invalid submission" }, { status: 400 });
   }

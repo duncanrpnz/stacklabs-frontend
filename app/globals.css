@@ -823,7 +823,7 @@ textarea:focus {
 
 /* ─── Estimate: honeypot & navigation ────────── */
 
-/* Honeypot — visually hidden, off the tab order, ignored by real users. */
+/* Honeypot - visually hidden, off the tab order, ignored by real users. */
 .hp-field {
   position: absolute;
   left: -9999px;

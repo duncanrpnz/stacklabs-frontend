@@ -21,7 +21,7 @@ export default function EstimatePage() {
               <p className="hero-location">Tell us more about your project</p>
               <h1>Let&apos;s scope it out.</h1>
               <p className="estimate-lead">
-                Answer a few questions and we&apos;ll give you a rough sense of size and timeline —
+                Answer a few questions and we&apos;ll give you a rough sense of size and timeline -
                 then you can decide if you want to take it further. Takes about three minutes.
               </p>
             </div>

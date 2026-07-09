@@ -4,9 +4,9 @@ import { redis } from "./redis";
 
 /**
  * Rate limiting with two backends:
- *  - Upstash Redis (when configured) — distributed and accurate across all
+ *  - Upstash Redis (when configured) - distributed and accurate across all
  *    serverless instances on Vercel. This is the real limiter in production.
- *  - In-memory fixed window (fallback) — for local dev with no Redis. Per-process
+ *  - In-memory fixed window (fallback) - for local dev with no Redis. Per-process
  *    and approximate, but means nothing hard-fails without Upstash.
  */
 
@@ -124,7 +124,7 @@ export async function guardAi(req: Request): Promise<NextResponse | null> {
 
   const perIp = await check(aiPerIp, ip, `ai:${ip}`, LIMITS.aiPerIpPerHour, HOUR);
   if (!perIp.ok) {
-    return tooMany(perIp.retryAfterSec, "You've hit the limit for now — try again in a little while.");
+    return tooMany(perIp.retryAfterSec, "You've hit the limit for now - try again in a little while.");
   }
 
   const global = await check(aiGlobal, "global", "ai:global", LIMITS.aiGlobalPerDay, DAY);
@@ -137,7 +137,7 @@ export async function guardAi(req: Request): Promise<NextResponse | null> {
 
 /**
  * Consume one slot from the global daily AI budget (shared with guardAi).
- * Returns true if within budget — used to bound the lead route's internal
+ * Returns true if within budget - used to bound the lead route's internal
  * pricing call against the same cap as the visitor-facing AI steps.
  */
 export async function tryConsumeGlobalAi(): Promise<boolean> {
@@ -150,7 +150,7 @@ export async function guardLead(req: Request): Promise<NextResponse | null> {
   const ip = clientIp(req);
   const perIp = await check(leadPerIp, ip, `lead:${ip}`, LIMITS.leadPerIpPerHour, HOUR);
   if (!perIp.ok) {
-    return tooMany(perIp.retryAfterSec, "Too many submissions — please try again shortly.");
+    return tooMany(perIp.retryAfterSec, "Too many submissions - please try again shortly.");
   }
   return null;
 }

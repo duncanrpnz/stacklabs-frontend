@@ -13,7 +13,7 @@ function anthropic(): Anthropic {
 
 const MODEL = "claude-opus-4-8";
 
-// Input caps — this is a public endpoint, so keep payloads sane.
+// Input caps - this is a public endpoint, so keep payloads sane.
 export const LIMITS = {
   project: 4000,
   budget: 200,
@@ -31,7 +31,7 @@ Voice: direct, plain-English, no fluff, no hype. Honest about trade-offs. New Ze
 const PUBLIC_SYSTEM = `${STUDIO_VOICE}
 
 You are the project intake assistant. Everything you write here is shown directly to the visitor who
-filled in the form — the person whose project this is. Address them directly as "you" and "your".
+filled in the form - the person whose project this is. Address them directly as "you" and "your".
 Never refer to them in the third person ("the prospect", "the client", "the user"). Never invent
 specific dollar figures or quote prices.`;
 
@@ -42,16 +42,16 @@ const SIZE_TIERS = `Size tiers:
 - Large: a complex, multi-part system with multiple integrations or scale requirements. Typically 3+ months.`;
 
 // How StackLabs actually delivers. Shared by the public estimate and the internal pricing prompt so
-// both size the same project the same way — if only one prompt has this, their tiers drift apart.
+// both size the same project the same way - if only one prompt has this, their tiers drift apart.
 const DELIVERY_CALIBRATION = `How StackLabs delivers (assume this when sizing):
 - ONE senior developer using modern, managed tooling (e.g. Expo / React Native for cross-platform
-  mobile, a managed backend like Supabase or Firebase). Do not over-count boilerplate — auth,
+  mobile, a managed backend like Supabase or Firebase). Do not over-count boilerplate - auth,
   storage, and deployment are largely solved by these tools.
 - For single-user, personal, or "just to test" builds, do NOT assume login/account systems,
   multi-device sync, or App Store / Play Store publishing unless they actually asked for it. Assume
   the leanest viable delivery.
 - Calibration anchor: a simple single-user, online-only mobile app (e.g. a personal notes app, plain
-  CRUD, no extras) is about one week of work (~40 hours). Sanity-check your sizing against that — if
+  CRUD, no extras) is about one week of work (~40 hours). Sanity-check your sizing against that - if
   you land far above it for a similarly simple brief, reconsider.`;
 
 // ---------- Step 1: clarifying questions (shown to the visitor) ----------
@@ -164,7 +164,7 @@ ${qaBlock(answers)}
 
 Summarise what they want to build, written directly to them ("You're looking to build…"), then map it
 to a size tier and a rough timeline range. This is an early, rough estimate to set expectations before
-a real conversation — base it on what they told you and state your assumptions. Do NOT give dollar
+a real conversation - base it on what they told you and state your assumptions. Do NOT give dollar
 figures.`,
       },
     ],
@@ -176,7 +176,7 @@ figures.`,
   return message.parsed_output;
 }
 
-// ---------- Internal: price to charge (SERVER-ONLY — never returned to the browser) ----------
+// ---------- Internal: price to charge (SERVER-ONLY - never returned to the browser) ----------
 // This is generated server-side in the lead route and placed only into the email to StackLabs.
 // It must never appear in any HTTP response to the client.
 
@@ -209,8 +209,8 @@ export async function generateInternalEstimate(
     thinking: { type: "adaptive" },
     system: `${STUDIO_VOICE}
 
-You are pricing a build internally for StackLabs. This is for StackLabs' eyes only — the client will
-NEVER see it — so be candid, realistic, and commercial.
+You are pricing a build internally for StackLabs. This is for StackLabs' eyes only - the client will
+NEVER see it - so be candid, realistic, and commercial.
 
 ${DELIVERY_CALIBRATION}
 
@@ -218,18 +218,18 @@ How to price:
 - ${rateBasis}
 - Price ONLY the base scope as described. Add modest padding for project management and a round of
   revisions, but do NOT inflate the headline for worst-case scope creep or things they didn't ask for.
-- Put scope creep, app-store onboarding, and future-proofing in "risks" as potential upside — never
+- Put scope creep, app-store onboarding, and future-proofing in "risks" as potential upside - never
   bake them into the base price.
 
 ${SIZE_TIERS}
 
-Published price bands — these are public on stacklabs.co.nz, so the client may well have read them:
+Published price bands - these are public on stacklabs.co.nz, so the client may well have read them:
 ${priceBandsForPrompt()}
 
 Consistency with what the client was told: the automated estimate already shown to the client is
 included in the enquiry below. Check your price against the published band for THAT tier. If your
 effort or price implies a different tier than the client saw, or falls outside the band for it, give
-the honest number anyway — but flag the mismatch as the FIRST thing in your rationale so StackLabs
+the honest number anyway - but flag the mismatch as the FIRST thing in your rationale so StackLabs
 can address it when they reply.`,
     output_config: { format: zodOutputFormat(InternalEstimateSchema) },
     messages: [
@@ -247,11 +247,11 @@ Budget the client gave: ${budget || "Not provided"}
 Their answers to the clarifying questions:
 ${qaBlock(answers)}
 
-The automated estimate the client has already been shown: ${publicEstimate.sizeTier} — ${publicEstimate.timeline}.
+The automated estimate the client has already been shown: ${publicEstimate.sizeTier} - ${publicEstimate.timeline}.
 
 Give a realistic NZD price range to charge for the base scope, the build effort it implies, what is
 driving the number, and the main risks that could move it (as upside, kept out of the headline).
-Factor in their stated budget where relevant, but base the price on the actual work — say so if their
+Factor in their stated budget where relevant, but base the price on the actual work - say so if their
 budget looks unrealistic for what they want.`,
       },
     ],

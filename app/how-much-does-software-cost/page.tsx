@@ -18,7 +18,7 @@ const drivers = [
   },
   {
     title: "Integrations",
-    body: "Every external system you connect to — Xero, a payment provider, a legacy database — adds work, and the messiness of the other system matters more than your own.",
+    body: "Every external system you connect to - Xero, a payment provider, a legacy database - adds work, and the messiness of the other system matters more than your own.",
   },
   {
     title: "Accounts, payments and permissions",
@@ -34,18 +34,18 @@ const drivers = [
   },
   {
     title: "Platforms and publishing",
-    body: "Web only is the cheapest start. Native mobile apps and app-store publishing add real work — often deferrable until the idea is proven.",
+    body: "Web only is the cheapest start. Native mobile apps and app-store publishing add real work - often deferrable until the idea is proven.",
   },
 ];
 
 const faqs = [
   {
     q: "How much does it cost to build an app in New Zealand?",
-    a: "As a rough guide: a focused prototype typically lands between $8k and $30k NZD, a complete product with several features between $30k and $90k, and complex multi-part systems upwards of $90k. The honest answer is that it depends almost entirely on scope — which is why we scope before we quote.",
+    a: "As a rough guide: a focused prototype typically lands between $8k and $30k NZD, a complete product with several features between $30k and $90k, and complex multi-part systems upwards of $90k. The honest answer is that it depends almost entirely on scope - which is why we scope before we quote.",
   },
   {
     q: "Why won't developers give a fixed price up front?",
-    a: "A fixed price on a vague scope is a guess with a margin baked in — you either overpay for the padding or the project fights over every change. A short scoping exercise first means the number you get is grounded in the actual work.",
+    a: "A fixed price on a vague scope is a guess with a margin baked in - you either overpay for the padding or the project fights over every change. A short scoping exercise first means the number you get is grounded in the actual work.",
   },
   {
     q: "What's the cheapest way to get a software idea off the ground?",
@@ -53,7 +53,7 @@ const faqs = [
   },
   {
     q: "Is it cheaper to use a no-code tool instead?",
-    a: "Often, yes — and we'll tell you when it is. No-code is a great way to test a workflow. Custom software earns its cost when you hit the walls: integrations no-code can't reach, performance, ownership of your data, or a product you intend to sell.",
+    a: "Often, yes - and we'll tell you when it is. No-code is a great way to test a workflow. Custom software earns its cost when you hit the walls: integrations no-code can't reach, performance, ownership of your data, or a product you intend to sell.",
   },
   {
     q: "What happens to the code if we stop working together?",
@@ -97,7 +97,7 @@ export default function CostGuidePage() {
                 <h2>The short answer</h2>
                 <p>
                   For a small, senior New Zealand studio like ours, most projects land in one
-                  of three bands. These are honest ballparks, not quotes — every project is
+                  of three bands. These are honest ballparks, not quotes - every project is
                   different, and the drivers below explain why.
                 </p>
               </section>
@@ -140,7 +140,7 @@ export default function CostGuidePage() {
               <section>
                 <h2>How to keep the cost down</h2>
                 <p>
-                  The biggest saving isn&apos;t negotiating the rate — it&apos;s cutting scope
+                  The biggest saving isn&apos;t negotiating the rate - it&apos;s cutting scope
                   before the build starts. Start web-only even if you want an app eventually.
                   Skip login until you have users worth logging in. Use managed services
                   instead of custom infrastructure. Build one workflow well instead of six
@@ -159,7 +159,7 @@ export default function CostGuidePage() {
                 <h2>When you shouldn&apos;t build custom software</h2>
                 <p>
                   Sometimes the right answer is a spreadsheet, an off-the-shelf product, or a
-                  no-code tool — and it&apos;s cheaper for everyone if that&apos;s said early.
+                  no-code tool - and it&apos;s cheaper for everyone if that&apos;s said early.
                   If your workflow is standard, your volumes are small, and you don&apos;t need
                   to own the product, custom software is probably premature. We&apos;ll tell
                   you if that&apos;s what we see.
@@ -181,7 +181,7 @@ export default function CostGuidePage() {
               <h2>Want a number for your actual idea?</h2>
               <p>
                 Describe your project and get a rough sense of size and timeline in about
-                three minutes — no call, no obligation.
+                three minutes - no call, no obligation.
               </p>
               <Link href="/estimate" className="btn btn-primary">
                 Get a rough estimate
