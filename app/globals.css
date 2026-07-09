@@ -856,3 +856,314 @@ textarea:focus {
 .estimate-back:hover {
   color: var(--text);
 }
+
+/* ─── Content pages (services, cost guide) ───── */
+
+.content-page {
+  padding: 7rem 0 6rem;
+}
+
+.content-inner {
+  max-width: 720px;
+}
+
+.content-intro {
+  margin-bottom: 3rem;
+}
+
+.content-intro h1 {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin: 0 0 1.25rem;
+  color: var(--text);
+}
+
+.content-lead {
+  font-size: clamp(1rem, 1.8vw, 1.12rem);
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.75;
+}
+
+.content-timeline {
+  display: inline-block;
+  margin: 1.5rem 0 0;
+  padding: 0.4rem 0.9rem;
+  background: var(--primary-dim);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.content-prose section {
+  margin-bottom: 2.5rem;
+}
+
+.content-prose h2 {
+  font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.9rem;
+  color: var(--text);
+}
+
+.content-prose p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  margin: 0 0 1rem;
+}
+
+.content-prose a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--primary);
+  text-underline-offset: 3px;
+}
+
+.content-asides {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 0 0 3rem;
+}
+
+.content-asides .aside-block ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.content-asides .aside-block li {
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.content-cta {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin: 0 0 3rem;
+}
+
+.content-cta h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.6rem;
+}
+
+.content-cta p {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin: 0 0 1.5rem;
+}
+
+.content-cta a:not(.btn) {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--primary);
+  text-underline-offset: 3px;
+}
+
+.content-related ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.content-related a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.content-related a:hover {
+  color: var(--text);
+}
+
+/* Homepage service cards are links now */
+a.service-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.service-more {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* ─── Cost guide ─────────────────────────────── */
+
+.cost-tiers {
+  display: grid;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 0 0 3rem;
+}
+
+.cost-tier {
+  background: var(--bg);
+  padding: 1.75rem 2rem;
+}
+
+.cost-tier-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.cost-tier h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.cost-tier-range {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.cost-tier-scope {
+  color: var(--text);
+  font-size: 0.92rem;
+  margin: 0 0 0.25rem;
+  line-height: 1.6;
+}
+
+.cost-tier-timeline {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.75rem;
+}
+
+.cost-tier-example {
+  color: var(--muted);
+  font-size: 0.875rem;
+  margin: 0;
+  line-height: 1.65;
+}
+
+.driver-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 0 0 3rem;
+}
+
+.driver {
+  background: var(--bg);
+  padding: 1.5rem 1.75rem;
+}
+
+.driver h3 {
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.driver p {
+  color: var(--muted);
+  font-size: 0.86rem;
+  margin: 0;
+  line-height: 1.65;
+}
+
+.faq {
+  margin: 0 0 3rem;
+}
+
+.faq h2 {
+  font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.25rem;
+  color: var(--text);
+}
+
+.faq details {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 0.6rem;
+  background: var(--surface);
+}
+
+.faq summary {
+  cursor: pointer;
+  padding: 1rem 1.25rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+  list-style: none;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq summary::after {
+  content: "+";
+  float: right;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.faq details[open] summary::after {
+  content: "−";
+}
+
+.faq details p {
+  padding: 0 1.25rem 1.1rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 720px) {
+  .content-page {
+    padding: 5rem 0 4rem;
+  }
+
+  .content-asides,
+  .driver-list {
+    grid-template-columns: 1fr;
+  }
+}

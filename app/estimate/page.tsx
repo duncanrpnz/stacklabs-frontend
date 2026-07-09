@@ -4,10 +4,10 @@ import Footer from "../components/Footer";
 import EstimateFlow from "../components/EstimateFlow";
 
 export const metadata: Metadata = {
-  title: "Start a project | StackLabs",
+  title: "Start a project",
   description:
     "Tell us about your project and get a rough sense of size and timeline in a few minutes. A quick guided intake from StackLabs, Cambridge NZ.",
-  alternates: { canonical: "https://stacklabs.co.nz/estimate" },
+  alternates: { canonical: "/estimate" },
 };
 
 export default function EstimatePage() {

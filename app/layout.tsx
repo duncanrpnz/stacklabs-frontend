@@ -11,18 +11,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "StackLabs Ltd | Software Development, Cambridge NZ",
+  title: {
+    default: "StackLabs Ltd | Software Development, Cambridge NZ",
+    template: "%s | StackLabs",
+  },
   description:
     "StackLabs is a small software development studio based in Cambridge, New Zealand. We build prototypes and production systems for founders and growing teams.",
   metadataBase: new URL("https://stacklabs.co.nz"),
-  alternates: { canonical: "https://stacklabs.co.nz" },
   openGraph: {
     title: "StackLabs Ltd | Software Development, Cambridge NZ",
     description:
       "StackLabs is a small software development studio based in Cambridge, New Zealand. We build prototypes and production systems for founders and growing teams.",
     url: "https://stacklabs.co.nz",
     siteName: "StackLabs",
-    images: [{ url: "/og.png", width: 1200, height: 630 }],
     locale: "en_NZ",
     type: "website",
   },
@@ -31,7 +32,6 @@ export const metadata: Metadata = {
     title: "StackLabs Ltd | Software Development, Cambridge NZ",
     description:
       "StackLabs is a small software development studio based in Cambridge, New Zealand. We build prototypes and production systems for founders and growing teams.",
-    images: ["/og.png"],
   },
 };
 
