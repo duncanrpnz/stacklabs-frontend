@@ -13,6 +13,26 @@ function anthropic(): Anthropic {
 
 const MODEL = "claude-opus-4-8";
 
+// The model occasionally double-escapes non-ASCII characters in structured output, so a JSON string
+// that should hold "3–5 weeks" arrives as the literal text "3–5 weeks". Decode any such stray
+// escapes in every string field before the value reaches a page or an email.
+function decodeStrayEscapes<T>(value: T): T {
+  if (typeof value === "string") {
+    return value.replace(/\\u([0-9a-fA-F]{4})/g, (_, hex: string) =>
+      String.fromCharCode(parseInt(hex, 16)),
+    ) as T;
+  }
+  if (Array.isArray(value)) {
+    return value.map(decodeStrayEscapes) as T;
+  }
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([k, v]) => [k, decodeStrayEscapes(v)]),
+    ) as T;
+  }
+  return value;
+}
+
 // Input caps - this is a public endpoint, so keep payloads sane.
 export const LIMITS = {
   project: 4000,
@@ -37,8 +57,8 @@ specific dollar figures or quote prices.`;
 
 // How we describe scope to visitors. The model maps a project onto one of these.
 const SIZE_TIERS = `Size tiers:
-- Small: a focused prototype or a single, well-defined feature. Typically ~2–5 weeks.
-- Medium: a complete product or app with several features and a few integrations. Typically ~6–12 weeks.
+- Small: a focused prototype or a single, well-defined feature. Typically ~2-5 weeks.
+- Medium: a complete product or app with several features and a few integrations. Typically ~6-12 weeks.
 - Large: a complex, multi-part system with multiple integrations or scale requirements. Typically 3+ months.`;
 
 // How StackLabs actually delivers. Shared by the public estimate and the internal pricing prompt so
@@ -99,7 +119,7 @@ also addressed to them) on why it matters or what kind of answer helps.`,
   if (!message.parsed_output) {
     throw new Error("Model did not return parseable questions");
   }
-  return message.parsed_output;
+  return decodeStrayEscapes(message.parsed_output);
 }
 
 // ---------- Step 2: summary + estimate (shown to the visitor) ----------
@@ -111,7 +131,9 @@ const EstimateSchema = z.object({
       'A plain-English summary written directly to the reader using "you" (e.g. "You\'re looking to build…"), 2–4 sentences.',
     ),
   sizeTier: z.enum(["Small", "Medium", "Large"]),
-  timeline: z.string().describe('A rough timeline range, e.g. "6–10 weeks".'),
+  timeline: z
+    .string()
+    .describe('A rough timeline range, e.g. "6-10 weeks". Use a plain hyphen in ranges, not an en dash.'),
   keyConsiderations: z
     .array(z.string())
     .describe("3 short bullets on the main things that will drive scope or risk."),
@@ -173,7 +195,7 @@ figures.`,
   if (!message.parsed_output) {
     throw new Error("Model did not return a parseable estimate");
   }
-  return message.parsed_output;
+  return decodeStrayEscapes(message.parsed_output);
 }
 
 // ---------- Internal: price to charge (SERVER-ONLY - never returned to the browser) ----------
@@ -183,8 +205,8 @@ figures.`,
 const InternalEstimateSchema = z.object({
   priceRangeNzd: z
     .string()
-    .describe('Suggested price to charge the client for the base scope, in NZD, e.g. "$5,000 – $7,500".'),
-  effort: z.string().describe('Rough build effort, e.g. "~40 hours (about 1 week)" or "3–4 weeks".'),
+    .describe('Suggested price to charge the client for the base scope, in NZD, e.g. "$5,000 - $7,500".'),
+  effort: z.string().describe('Rough build effort, e.g. "~40 hours (about 1 week)" or "3-4 weeks".'),
   rationale: z.string().describe("2–4 sentences on what is driving the number."),
   risks: z.array(z.string()).describe("2–3 things that could push the price up or add risk."),
   confidence: z.enum(["Low", "Medium", "High"]),
@@ -260,5 +282,5 @@ budget looks unrealistic for what they want.`,
   if (!message.parsed_output) {
     throw new Error("Model did not return a parseable internal estimate");
   }
-  return message.parsed_output;
+  return decodeStrayEscapes(message.parsed_output);
 }
