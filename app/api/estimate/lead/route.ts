@@ -63,14 +63,14 @@ function emailHtml(name: string, email: string, project: string, budget: string,
 
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Project enquiry from ${esc(name)}</title></head>
-<body style="margin:0;padding:0;background:#0a0a0f;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0f;padding:40px 16px;">
+<body style="margin:0;padding:0;background:#262c3d;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#262c3d;padding:40px 16px;">
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
         <tr><td style="padding-bottom:32px;">
           <span style="font-size:20px;font-weight:700;letter-spacing:-0.5px;color:#e8eaf0;"><span style="color:#6366f1;">Stack</span>Labs</span>
         </td></tr>
-        <tr><td style="background:#111118;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px;">
+        <tr><td style="background:#323a52;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px;">
           <p style="margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6366f1;">Project enquiry · ${esc(estimate.sizeTier)} · ${esc(estimate.timeline)}</p>
           <h1 style="margin:0 0 32px;font-size:22px;font-weight:700;color:#e8eaf0;letter-spacing:-0.4px;">${esc(name)}</h1>
           <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:0 0 28px;" />
@@ -110,14 +110,14 @@ function emailHtml(name: string, email: string, project: string, budget: string,
 function confirmationHtml(name: string, estimate: Estimate) {
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Thanks from StackLabs</title></head>
-<body style="margin:0;padding:0;background:#0a0a0f;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0f;padding:40px 16px;">
+<body style="margin:0;padding:0;background:#262c3d;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#262c3d;padding:40px 16px;">
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
         <tr><td style="padding-bottom:32px;">
           <span style="font-size:20px;font-weight:700;letter-spacing:-0.5px;color:#e8eaf0;"><span style="color:#6366f1;">Stack</span>Labs</span>
         </td></tr>
-        <tr><td style="background:#111118;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px;">
+        <tr><td style="background:#323a52;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px;">
           <h1 style="margin:0 0 16px;font-size:22px;font-weight:700;color:#e8eaf0;letter-spacing:-0.4px;">Thanks, ${esc(name)} - we've got it.</h1>
           <p style="margin:0 0 24px;font-size:15px;line-height:1.7;color:#b6bdcc;">We've received your project details and the rough estimate below. We'll be in touch soon to talk it through and take it further.</p>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;">

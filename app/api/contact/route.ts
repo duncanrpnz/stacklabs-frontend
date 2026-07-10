@@ -14,8 +14,8 @@ function emailHtml(name: string, email: string, project: string) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>New enquiry from ${escaped(name)}</title>
 </head>
-<body style="margin:0;padding:0;background:#0a0a0f;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0f;padding:40px 16px;">
+<body style="margin:0;padding:0;background:#262c3d;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#262c3d;padding:40px 16px;">
     <tr>
       <td align="center">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
@@ -31,7 +31,7 @@ function emailHtml(name: string, email: string, project: string) {
 
           <!-- Card -->
           <tr>
-            <td style="background:#111118;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px;">
+            <td style="background:#323a52;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px;">
 
               <!-- Title -->
               <p style="margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6366f1;">New enquiry</p>
