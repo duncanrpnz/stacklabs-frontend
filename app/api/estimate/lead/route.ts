@@ -20,13 +20,13 @@ const esc = (s: string) =>
     .replace(/\n/g, "<br>");
 
 function field(label: string, value: string) {
-  return `<p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8892a4;">${esc(label)}</p>
-  <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#e8eaf0;">${value}</p>`;
+  return `<p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#aeb8cc;">${esc(label)}</p>
+  <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#f2f4f9;">${value}</p>`;
 }
 
 function list(items: string[]) {
-  if (!items.length) return '<span style="color:#8892a4;">None</span>';
-  return `<ul style="margin:0 0 24px;padding-left:18px;color:#e8eaf0;font-size:15px;line-height:1.6;">${items
+  if (!items.length) return '<span style="color:#aeb8cc;">None</span>';
+  return `<ul style="margin:0 0 24px;padding-left:18px;color:#f2f4f9;font-size:15px;line-height:1.6;">${items
     .map((i) => `<li style="margin-bottom:4px;">${esc(i)}</li>`)
     .join("")}</ul>`;
 }
@@ -35,19 +35,19 @@ function list(items: string[]) {
 function internalBlock(internal: InternalEstimate | null) {
   if (!internal) {
     return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px;">
-      <tr><td style="background:rgba(99,102,241,0.10);border:1px solid rgba(99,102,241,0.35);border-radius:10px;padding:18px 20px;">
-        <p style="margin:0;font-size:13px;line-height:1.6;color:#b6bdcc;">Internal price estimate could not be generated for this enquiry - work it out manually.</p>
+      <tr><td style="background:rgba(91,127,240,0.12);border:1px solid rgba(91,127,240,0.35);border-radius:10px;padding:18px 20px;">
+        <p style="margin:0;font-size:13px;line-height:1.6;color:#cdd5e4;">Internal price estimate could not be generated for this enquiry - work it out manually.</p>
       </td></tr></table>`;
   }
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px;">
-    <tr><td style="background:rgba(99,102,241,0.10);border:1px solid rgba(99,102,241,0.35);border-radius:10px;padding:20px 22px;">
-      <p style="margin:0 0 4px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#8b8ff5;">Internal only · not shown to the client</p>
+    <tr><td style="background:rgba(91,127,240,0.12);border:1px solid rgba(91,127,240,0.35);border-radius:10px;padding:20px 22px;">
+      <p style="margin:0 0 4px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#8fa8f5;">Internal only · not shown to the client</p>
       <p style="margin:0 0 14px;font-size:26px;font-weight:800;color:#ffffff;letter-spacing:-0.5px;">${esc(internal.priceRangeNzd)}</p>
-      <p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8892a4;">Effort · Confidence</p>
-      <p style="margin:0 0 16px;font-size:14px;color:#e8eaf0;">${esc(internal.effort)} · ${esc(internal.confidence)} confidence</p>
-      <p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8892a4;">Rationale</p>
-      <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#e8eaf0;">${esc(internal.rationale)}</p>
-      <p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8892a4;">Risks</p>
+      <p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#aeb8cc;">Effort · Confidence</p>
+      <p style="margin:0 0 16px;font-size:14px;color:#f2f4f9;">${esc(internal.effort)} · ${esc(internal.confidence)} confidence</p>
+      <p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#aeb8cc;">Rationale</p>
+      <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#f2f4f9;">${esc(internal.rationale)}</p>
+      <p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#aeb8cc;">Risks</p>
       ${list(internal.risks)}
     </td></tr></table>`;
 }
@@ -56,8 +56,8 @@ function emailHtml(name: string, email: string, project: string, budget: string,
   const qa = answers
     .map(
       (a) =>
-        `<p style="margin:0 0 4px;font-size:13px;font-weight:600;color:#e8eaf0;">${esc(a.question)}</p>
-         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#b6bdcc;">${a.answer ? esc(a.answer) : '<span style="color:#8892a4;">(no answer)</span>'}</p>`,
+        `<p style="margin:0 0 4px;font-size:13px;font-weight:600;color:#f2f4f9;">${esc(a.question)}</p>
+         <p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#cdd5e4;">${a.answer ? esc(a.answer) : '<span style="color:#aeb8cc;">(no answer)</span>'}</p>`,
     )
     .join("");
 
@@ -68,27 +68,27 @@ function emailHtml(name: string, email: string, project: string, budget: string,
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
         <tr><td style="padding-bottom:32px;">
-          <span style="font-size:20px;font-weight:700;letter-spacing:-0.5px;color:#e8eaf0;"><span style="color:#5B7FF0;">Stack</span>Labs</span>
+          <img src="https://stacklabs.co.nz/email/stacklabs-wordmark-dark.png" width="146" height="20" alt="StackLabs" style="display:block;border:0;" />
         </td></tr>
-        <tr><td style="background:#323a52;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px;">
+        <tr><td style="background:#323a52;border:1px solid rgba(255,255,255,0.14);border-radius:14px;padding:36px;">
           <p style="margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#5B7FF0;">Project enquiry · ${esc(estimate.sizeTier)} · ${esc(estimate.timeline)}</p>
-          <h1 style="margin:0 0 32px;font-size:22px;font-weight:700;color:#e8eaf0;letter-spacing:-0.4px;">${esc(name)}</h1>
-          <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:0 0 28px;" />
+          <h1 style="margin:0 0 32px;font-size:22px;font-weight:700;color:#f2f4f9;letter-spacing:-0.4px;">${esc(name)}</h1>
+          <hr style="border:none;border-top:1px solid rgba(255,255,255,0.14);margin:0 0 28px;" />
           ${internalBlock(internal)}
           ${field("Email", `<a href="mailto:${esc(email)}" style="color:#5B7FF0;text-decoration:none;">${esc(email)}</a>`)}
-          ${field("Budget", budget ? esc(budget) : '<span style="color:#8892a4;">Not provided</span>')}
+          ${field("Budget", budget ? esc(budget) : '<span style="color:#aeb8cc;">Not provided</span>')}
           ${field("Project description", esc(project))}
 
-          <p style="margin:0 0 12px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8892a4;">Clarifying answers</p>
+          <p style="margin:0 0 12px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#aeb8cc;">Clarifying answers</p>
           ${qa}
 
-          <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:8px 0 28px;" />
+          <hr style="border:none;border-top:1px solid rgba(255,255,255,0.14);margin:8px 0 28px;" />
 
           ${field("AI summary", esc(estimate.summary))}
           ${field("Estimated size", `${esc(estimate.sizeTier)} - ${esc(estimate.timeline)}`)}
-          <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8892a4;">Key considerations</p>
+          <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#aeb8cc;">Key considerations</p>
           ${list(estimate.keyConsiderations)}
-          <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8892a4;">Assumptions</p>
+          <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#aeb8cc;">Assumptions</p>
           ${list(estimate.assumptions)}
 
           <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:8px;">
@@ -98,7 +98,7 @@ function emailHtml(name: string, email: string, project: string, budget: string,
           </table>
         </td></tr>
         <tr><td style="padding-top:24px;">
-          <p style="margin:0;font-size:12px;color:#8892a4;">Sent from the project estimator at <a href="https://stacklabs.co.nz" style="color:#8892a4;">stacklabs.co.nz</a>. Size and timeline are AI-generated estimates.</p>
+          <p style="margin:0;font-size:12px;color:#aeb8cc;">Sent from the project estimator at <a href="https://stacklabs.co.nz" style="color:#aeb8cc;">stacklabs.co.nz</a>. Size and timeline are AI-generated estimates.</p>
         </td></tr>
       </table>
     </td></tr>
@@ -115,22 +115,22 @@ function confirmationHtml(name: string, estimate: Estimate) {
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
         <tr><td style="padding-bottom:32px;">
-          <span style="font-size:20px;font-weight:700;letter-spacing:-0.5px;color:#e8eaf0;"><span style="color:#5B7FF0;">Stack</span>Labs</span>
+          <img src="https://stacklabs.co.nz/email/stacklabs-wordmark-dark.png" width="146" height="20" alt="StackLabs" style="display:block;border:0;" />
         </td></tr>
-        <tr><td style="background:#323a52;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px;">
-          <h1 style="margin:0 0 16px;font-size:22px;font-weight:700;color:#e8eaf0;letter-spacing:-0.4px;">Thanks, ${esc(name)} - we've got it.</h1>
-          <p style="margin:0 0 24px;font-size:15px;line-height:1.7;color:#b6bdcc;">We've received your project details and the rough estimate below. We'll be in touch soon to talk it through and take it further.</p>
+        <tr><td style="background:#323a52;border:1px solid rgba(255,255,255,0.14);border-radius:14px;padding:36px;">
+          <h1 style="margin:0 0 16px;font-size:22px;font-weight:700;color:#f2f4f9;letter-spacing:-0.4px;">Thanks, ${esc(name)} - we've got it.</h1>
+          <p style="margin:0 0 24px;font-size:15px;line-height:1.7;color:#cdd5e4;">We've received your project details and the rough estimate below. We'll be in touch soon to talk it through and take it further.</p>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px;">
-            <tr><td style="background:rgba(99,102,241,0.10);border:1px solid rgba(99,102,241,0.30);border-radius:10px;padding:18px 20px;">
-              <p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8892a4;">Rough estimate</p>
+            <tr><td style="background:rgba(91,127,240,0.12);border:1px solid rgba(91,127,240,0.30);border-radius:10px;padding:18px 20px;">
+              <p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#aeb8cc;">Rough estimate</p>
               <p style="margin:0;font-size:18px;font-weight:700;color:#ffffff;">${esc(estimate.sizeTier)} · ${esc(estimate.timeline)}</p>
             </td></tr>
           </table>
-          <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#8892a4;">This is a rough, automated estimate to set expectations - not a quote. Real numbers come after a proper conversation.</p>
-          <p style="margin:0;font-size:15px;line-height:1.7;color:#b6bdcc;">Anything to add in the meantime? Just reply to this email or reach us at <a href="mailto:hello@stacklabs.co.nz" style="color:#5B7FF0;text-decoration:none;">hello@stacklabs.co.nz</a>.</p>
+          <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#aeb8cc;">This is a rough, automated estimate to set expectations - not a quote. Real numbers come after a proper conversation.</p>
+          <p style="margin:0;font-size:15px;line-height:1.7;color:#cdd5e4;">Anything to add in the meantime? Just reply to this email or reach us at <a href="mailto:hello@stacklabs.co.nz" style="color:#5B7FF0;text-decoration:none;">hello@stacklabs.co.nz</a>.</p>
         </td></tr>
         <tr><td style="padding-top:24px;">
-          <p style="margin:0;font-size:12px;color:#8892a4;">StackLabs · Cambridge, New Zealand · <a href="https://stacklabs.co.nz" style="color:#8892a4;">stacklabs.co.nz</a></p>
+          <p style="margin:0;font-size:12px;color:#aeb8cc;">StackLabs · Cambridge, New Zealand · <a href="https://stacklabs.co.nz" style="color:#aeb8cc;">stacklabs.co.nz</a></p>
         </td></tr>
       </table>
     </td></tr>

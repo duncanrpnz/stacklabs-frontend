@@ -23,32 +23,30 @@ function emailHtml(name: string, email: string, project: string) {
           <!-- Header -->
           <tr>
             <td style="padding-bottom:32px;">
-              <span style="font-size:20px;font-weight:700;letter-spacing:-0.5px;color:#e8eaf0;">
-                <span style="color:#5B7FF0;">Stack</span>Labs
-              </span>
+              <img src="https://stacklabs.co.nz/email/stacklabs-wordmark-dark.png" width="146" height="20" alt="StackLabs" style="display:block;border:0;" />
             </td>
           </tr>
 
           <!-- Card -->
           <tr>
-            <td style="background:#323a52;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px;">
+            <td style="background:#323a52;border:1px solid rgba(255,255,255,0.14);border-radius:14px;padding:36px;">
 
               <!-- Title -->
               <p style="margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#5B7FF0;">New enquiry</p>
-              <h1 style="margin:0 0 32px;font-size:22px;font-weight:700;color:#e8eaf0;letter-spacing:-0.4px;">${escaped(name)}</h1>
+              <h1 style="margin:0 0 32px;font-size:22px;font-weight:700;color:#f2f4f9;letter-spacing:-0.4px;">${escaped(name)}</h1>
 
               <!-- Divider -->
-              <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:0 0 28px;" />
+              <hr style="border:none;border-top:1px solid rgba(255,255,255,0.14);margin:0 0 28px;" />
 
               <!-- Email field -->
-              <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8892a4;">Email</p>
-              <p style="margin:0 0 24px;font-size:15px;color:#e8eaf0;">
+              <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#aeb8cc;">Email</p>
+              <p style="margin:0 0 24px;font-size:15px;color:#f2f4f9;">
                 <a href="mailto:${escaped(email)}" style="color:#5B7FF0;text-decoration:none;">${escaped(email)}</a>
               </p>
 
               <!-- Project field -->
-              <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8892a4;">What they're building</p>
-              <p style="margin:0;font-size:15px;line-height:1.6;color:#e8eaf0;">${project ? escaped(project) : '<span style="color:#8892a4;">Not provided</span>'}</p>
+              <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#aeb8cc;">What they're building</p>
+              <p style="margin:0;font-size:15px;line-height:1.6;color:#f2f4f9;">${project ? escaped(project) : '<span style="color:#aeb8cc;">Not provided</span>'}</p>
 
               <!-- Reply CTA -->
               <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:32px;">
@@ -65,9 +63,9 @@ function emailHtml(name: string, email: string, project: string) {
           <!-- Footer -->
           <tr>
             <td style="padding-top:24px;">
-              <p style="margin:0;font-size:12px;color:#8892a4;">
+              <p style="margin:0;font-size:12px;color:#aeb8cc;">
                 Sent from the contact form at
-                <a href="https://stacklabs.co.nz" style="color:#8892a4;">stacklabs.co.nz</a>
+                <a href="https://stacklabs.co.nz" style="color:#aeb8cc;">stacklabs.co.nz</a>
               </p>
             </td>
           </tr>
