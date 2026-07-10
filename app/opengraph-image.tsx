@@ -1,11 +1,18 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const alt =
   "StackLabs - software development studio in Cambridge, New Zealand";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpengraphImage() {
+export default async function OpengraphImage() {
+  const wordmark = await readFile(
+    join(process.cwd(), "public", "stacklabs-wordmark-dark-bg.svg")
+  );
+  const wordmarkSrc = `data:image/svg+xml;base64,${wordmark.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -20,13 +27,10 @@ export default function OpengraphImage() {
           color: "#f2f4f9",
         }}
       >
-        <div style={{ display: "flex", fontSize: 92 }}>
-          <span style={{ fontWeight: 800 }}>Stack</span>
-          <span style={{ fontWeight: 300 }}>Labs</span>
-        </div>
+        <img src={wordmarkSrc} width={584} height={80} alt="" />
         <div
           style={{
-            marginTop: 28,
+            marginTop: 40,
             fontSize: 38,
             fontWeight: 400,
             color: "#aeb8cc",
@@ -40,7 +44,7 @@ export default function OpengraphImage() {
           style={{
             marginTop: 48,
             fontSize: 28,
-            color: "#6366f1",
+            color: "#5B7FF0",
             fontWeight: 600,
           }}
         >

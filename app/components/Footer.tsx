@@ -5,9 +5,14 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="container footer-inner">
         <p className="footer-brand">
-          <span className="brand-stack">Stack</span>
-          <span className="brand-labs">Labs</span>
-          <span className="footer-ltd"> Ltd</span>
+          <img
+            src="/stacklabs-wordmark-dark-bg.svg"
+            alt="StackLabs"
+            className="footer-logo"
+            width={117}
+            height={16}
+          />
+          <span className="footer-ltd">Ltd</span>
         </p>
         <nav className="footer-links" aria-label="Footer navigation">
           <Link href="/#services">Services</Link>

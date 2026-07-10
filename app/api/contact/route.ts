@@ -24,7 +24,7 @@ function emailHtml(name: string, email: string, project: string) {
           <tr>
             <td style="padding-bottom:32px;">
               <span style="font-size:20px;font-weight:700;letter-spacing:-0.5px;color:#e8eaf0;">
-                <span style="color:#6366f1;">Stack</span>Labs
+                <span style="color:#5B7FF0;">Stack</span>Labs
               </span>
             </td>
           </tr>
@@ -34,7 +34,7 @@ function emailHtml(name: string, email: string, project: string) {
             <td style="background:#323a52;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px;">
 
               <!-- Title -->
-              <p style="margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6366f1;">New enquiry</p>
+              <p style="margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#5B7FF0;">New enquiry</p>
               <h1 style="margin:0 0 32px;font-size:22px;font-weight:700;color:#e8eaf0;letter-spacing:-0.4px;">${escaped(name)}</h1>
 
               <!-- Divider -->
@@ -43,7 +43,7 @@ function emailHtml(name: string, email: string, project: string) {
               <!-- Email field -->
               <p style="margin:0 0 6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8892a4;">Email</p>
               <p style="margin:0 0 24px;font-size:15px;color:#e8eaf0;">
-                <a href="mailto:${escaped(email)}" style="color:#6366f1;text-decoration:none;">${escaped(email)}</a>
+                <a href="mailto:${escaped(email)}" style="color:#5B7FF0;text-decoration:none;">${escaped(email)}</a>
               </p>
 
               <!-- Project field -->
@@ -53,7 +53,7 @@ function emailHtml(name: string, email: string, project: string) {
               <!-- Reply CTA -->
               <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:32px;">
                 <tr>
-                  <td style="background:#6366f1;border-radius:8px;">
+                  <td style="background:#4a6ae8;border-radius:8px;">
                     <a href="mailto:${escaped(email)}" style="display:inline-block;padding:12px 24px;font-size:14px;font-weight:600;color:#ffffff;text-decoration:none;letter-spacing:-0.1px;">Reply to ${escaped(name)}</a>
                   </td>
                 </tr>

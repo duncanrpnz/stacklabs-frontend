@@ -10,8 +10,13 @@ export default function Header() {
     <header className="site-header">
       <div className="container header-inner">
         <Link href="/#home" className="brand">
-          <span className="brand-stack">Stack</span>
-          <span className="brand-labs">Labs</span>
+          <img
+            src="/stacklabs-wordmark-dark-bg.svg"
+            alt="StackLabs"
+            className="brand-logo"
+            width={146}
+            height={20}
+          />
         </Link>
         <button
           className="nav-toggle"

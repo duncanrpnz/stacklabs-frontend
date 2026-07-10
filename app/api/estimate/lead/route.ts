@@ -68,14 +68,14 @@ function emailHtml(name: string, email: string, project: string, budget: string,
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
         <tr><td style="padding-bottom:32px;">
-          <span style="font-size:20px;font-weight:700;letter-spacing:-0.5px;color:#e8eaf0;"><span style="color:#6366f1;">Stack</span>Labs</span>
+          <span style="font-size:20px;font-weight:700;letter-spacing:-0.5px;color:#e8eaf0;"><span style="color:#5B7FF0;">Stack</span>Labs</span>
         </td></tr>
         <tr><td style="background:#323a52;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px;">
-          <p style="margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#6366f1;">Project enquiry · ${esc(estimate.sizeTier)} · ${esc(estimate.timeline)}</p>
+          <p style="margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#5B7FF0;">Project enquiry · ${esc(estimate.sizeTier)} · ${esc(estimate.timeline)}</p>
           <h1 style="margin:0 0 32px;font-size:22px;font-weight:700;color:#e8eaf0;letter-spacing:-0.4px;">${esc(name)}</h1>
           <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:0 0 28px;" />
           ${internalBlock(internal)}
-          ${field("Email", `<a href="mailto:${esc(email)}" style="color:#6366f1;text-decoration:none;">${esc(email)}</a>`)}
+          ${field("Email", `<a href="mailto:${esc(email)}" style="color:#5B7FF0;text-decoration:none;">${esc(email)}</a>`)}
           ${field("Budget", budget ? esc(budget) : '<span style="color:#8892a4;">Not provided</span>')}
           ${field("Project description", esc(project))}
 
@@ -92,7 +92,7 @@ function emailHtml(name: string, email: string, project: string, budget: string,
           ${list(estimate.assumptions)}
 
           <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:8px;">
-            <tr><td style="background:#6366f1;border-radius:8px;">
+            <tr><td style="background:#4a6ae8;border-radius:8px;">
               <a href="mailto:${esc(email)}" style="display:inline-block;padding:12px 24px;font-size:14px;font-weight:600;color:#ffffff;text-decoration:none;letter-spacing:-0.1px;">Reply to ${esc(name)}</a>
             </td></tr>
           </table>
@@ -115,7 +115,7 @@ function confirmationHtml(name: string, estimate: Estimate) {
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
         <tr><td style="padding-bottom:32px;">
-          <span style="font-size:20px;font-weight:700;letter-spacing:-0.5px;color:#e8eaf0;"><span style="color:#6366f1;">Stack</span>Labs</span>
+          <span style="font-size:20px;font-weight:700;letter-spacing:-0.5px;color:#e8eaf0;"><span style="color:#5B7FF0;">Stack</span>Labs</span>
         </td></tr>
         <tr><td style="background:#323a52;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:36px;">
           <h1 style="margin:0 0 16px;font-size:22px;font-weight:700;color:#e8eaf0;letter-spacing:-0.4px;">Thanks, ${esc(name)} - we've got it.</h1>
@@ -127,7 +127,7 @@ function confirmationHtml(name: string, estimate: Estimate) {
             </td></tr>
           </table>
           <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#8892a4;">This is a rough, automated estimate to set expectations - not a quote. Real numbers come after a proper conversation.</p>
-          <p style="margin:0;font-size:15px;line-height:1.7;color:#b6bdcc;">Anything to add in the meantime? Just reply to this email or reach us at <a href="mailto:hello@stacklabs.co.nz" style="color:#6366f1;text-decoration:none;">hello@stacklabs.co.nz</a>.</p>
+          <p style="margin:0;font-size:15px;line-height:1.7;color:#b6bdcc;">Anything to add in the meantime? Just reply to this email or reach us at <a href="mailto:hello@stacklabs.co.nz" style="color:#5B7FF0;text-decoration:none;">hello@stacklabs.co.nz</a>.</p>
         </td></tr>
         <tr><td style="padding-top:24px;">
           <p style="margin:0;font-size:12px;color:#8892a4;">StackLabs · Cambridge, New Zealand · <a href="https://stacklabs.co.nz" style="color:#8892a4;">stacklabs.co.nz</a></p>
