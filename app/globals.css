@@ -227,12 +227,27 @@ img {
 /* ─── Section title ──────────────────────────── */
 
 .section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
   margin: 0 0 2.5rem;
+}
+
+/* The stacked-block "l" from the wordmark, as a section marker. */
+.section-title::before {
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 4px;
+  background: #9ca3af;
+  box-shadow:
+    0 -6px 0 #5b7ff0,
+    0 6px 0 #fafaf9;
 }
 
 /* ─── Services ───────────────────────────────── */
@@ -259,7 +274,7 @@ img {
 }
 
 .service-card:hover {
-  background: rgba(255, 255, 255, 0.045);
+  background: rgba(91, 127, 240, 0.08);
 }
 
 .service-num {
@@ -806,17 +821,39 @@ textarea:focus {
   }
 }
 
+/* The wordmark's stacked blocks, lighting up in sequence. The element is the
+   middle block; the top and bottom blocks are box-shadows. */
 .spinner {
-  width: 36px;
-  height: 36px;
-  border: 3px solid var(--border);
-  border-top-color: var(--primary);
-  border-radius: 50%;
-  animation: estSpin 0.8s linear infinite;
+  width: 30px;
+  height: 9px;
+  border-radius: 1.5px;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 -13px 0 rgba(255, 255, 255, 0.16),
+    0 13px 0 rgba(255, 255, 255, 0.16);
+  animation: stackPulse 1.2s infinite;
+  margin: 13px 0;
 }
-@keyframes estSpin {
-  to {
-    transform: rotate(360deg);
+@keyframes stackPulse {
+  0%,
+  90%,
+  100% {
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow:
+      0 -13px 0 #5b7ff0,
+      0 13px 0 rgba(255, 255, 255, 0.16);
+  }
+  30% {
+    background: #9ca3af;
+    box-shadow:
+      0 -13px 0 rgba(255, 255, 255, 0.16),
+      0 13px 0 rgba(255, 255, 255, 0.16);
+  }
+  60% {
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow:
+      0 -13px 0 rgba(255, 255, 255, 0.16),
+      0 13px 0 #fafaf9;
   }
 }
 
@@ -1256,6 +1293,7 @@ a.work-card::before {
 
 a.work-card:hover {
   border-color: rgba(91, 127, 240, 0.4);
+  background: linear-gradient(180deg, rgba(91, 127, 240, 0.09), transparent);
   transform: translateY(-2px);
 }
 
@@ -1360,6 +1398,34 @@ a.work-card:hover .work-card-more {
   font-size: 0.8rem;
   color: var(--muted);
   line-height: 1.45;
+}
+
+/* ─── Case study screenshots ─────────────────── */
+
+.case-shots {
+  margin: 0 0 3rem;
+}
+
+.case-shot {
+  margin: 0 0 1.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.case-shot img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 1px solid var(--border);
+}
+
+.case-shot figcaption {
+  padding: 0.85rem 1.25rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--muted);
 }
 
 .case-back {

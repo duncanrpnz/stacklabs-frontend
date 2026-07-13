@@ -100,6 +100,24 @@ export default async function CaseStudyPage({ params }: Props) {
               ))}
             </div>
 
+            {study.images && study.images.length > 0 && (
+              <div className="case-shots">
+                <h2 className="section-title">Inside the platform</h2>
+                {study.images.map((img) => (
+                  <figure className="case-shot" key={img.src}>
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      width={img.width}
+                      height={img.height}
+                      loading="lazy"
+                    />
+                    <figcaption>{img.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
+
             <div className="content-cta">
               <h2>Got something like this in mind?</h2>
               <p>

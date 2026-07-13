@@ -16,6 +16,15 @@ export interface CaseStudySection {
   paragraphs: string[];
 }
 
+export interface CaseStudyImage {
+  src: string;
+  alt: string;
+  caption: string;
+  /** Aspect ratio as width/height, used to reserve layout space. */
+  width: number;
+  height: number;
+}
+
 export interface CaseStudy {
   slug: string;
   name: string;
@@ -30,6 +39,7 @@ export interface CaseStudy {
   metrics?: CaseStudyMetric[];
   facts: CaseStudyFact[];
   sections: CaseStudySection[];
+  images?: CaseStudyImage[];
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -126,6 +136,31 @@ export const caseStudies: CaseStudy[] = [
           "A lot of the build was shaped by the fact that several organisations share the platform, each with their own assets, surveys, and users, walled off from each other. The public inspection links were the fiddly bit. They had to be dead simple for someone standing out in a paddock, but still secure, still expire, and still be easy to shut off.",
           "It's a good example of what actually taking something to production involves. Not just the features, but the error monitoring, a clean way to deploy it, and the boring-but-important data model that makes sure a QR code on a tank always opens the right survey.",
         ],
+      },
+    ],
+    images: [
+      {
+        src: "/work/infratrack/dashboard.png",
+        alt: "InfraTrack dashboard showing asset health totals, a satellite map with asset pins, an asset list, and a recent inspection activity feed",
+        caption:
+          "The dashboard: every asset on a map with its health at a glance, and inspections rolling in on the right.",
+        width: 1335,
+        height: 1003,
+      },
+      {
+        src: "/work/infratrack/survey-builder.png",
+        alt: "InfraTrack survey builder showing question nodes connected by branching logic between categories",
+        caption:
+          "The drag-and-drop survey builder. Answers decide what gets asked next - a failed check digs deeper, a pass moves on.",
+        width: 1849,
+        height: 1124,
+      },
+      {
+        src: "/work/infratrack/login.png",
+        alt: "InfraTrack sign-in screen with the product wordmark and tagline",
+        caption: "Sign-in. Field inspectors skip this entirely - they get in through expiring QR links.",
+        width: 757,
+        height: 649,
       },
     ],
   },
