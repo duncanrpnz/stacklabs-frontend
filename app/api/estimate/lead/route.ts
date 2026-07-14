@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import {
   LIMITS,
   generateInternalEstimate,
@@ -172,30 +172,33 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
-  // Generate the internal price server-side. Never returned to the client - only emailed.
-  // If it fails (no key / API error), still capture the lead rather than losing it.
-  let internal: InternalEstimate | null = null;
-  if (process.env.ANTHROPIC_API_KEY && (await tryConsumeGlobalAi())) {
-    try {
-      internal = await generateInternalEstimate(project, budget, answers, estimate);
-    } catch (err) {
-      console.error("generateInternalEstimate failed:", err);
+  // Persist immediately so the lead is never lost, then respond to the
+  // visitor right away. The internal price (LLM call) and emails run after
+  // the response is sent.
+  await saveLead({ name, email, project, budget, answers, estimate, internal: null });
+
+  after(async () => {
+    // Generate the internal price server-side. Never returned to the client - only emailed.
+    // If it fails (no key / API error), the lead is already captured above.
+    let internal: InternalEstimate | null = null;
+    if (process.env.ANTHROPIC_API_KEY && (await tryConsumeGlobalAi())) {
+      try {
+        internal = await generateInternalEstimate(project, budget, answers, estimate);
+      } catch (err) {
+        console.error("generateInternalEstimate failed:", err);
+      }
     }
-  }
 
-  // Persist before emailing so a lead is never lost if email delivery fails.
-  await saveLead({ name, email, project, budget, answers, estimate, internal });
-
-  const internalText = internal
-    ? `INTERNAL - not shown to the client
+    const internalText = internal
+      ? `INTERNAL - not shown to the client
 Suggested price: ${internal.priceRangeNzd}
 Effort: ${internal.effort} (${internal.confidence} confidence)
 Rationale: ${internal.rationale}
 Risks:
 ${internal.risks.map((r) => `- ${r}`).join("\n")}`
-    : `INTERNAL - price estimate could not be generated; work it out manually.`;
+      : `INTERNAL - price estimate could not be generated; work it out manually.`;
 
-  const text = `Project enquiry from ${name} (${email})
+    const text = `Project enquiry from ${name} (${email})
 Budget: ${budget || "Not provided"}
 Estimated size: ${estimate.sizeTier} - ${estimate.timeline}
 
@@ -210,33 +213,33 @@ ${answers.map((a) => `${a.question}\n${a.answer || "(no answer)"}`).join("\n\n")
 AI summary:
 ${estimate.summary}`;
 
-  const { error } = await resend.emails.send({
-    from: "StackLabs <noreply@stacklabs.co.nz>",
-    to: "hello@stacklabs.co.nz",
-    replyTo: email,
-    subject: `Project enquiry from ${name} (${estimate.sizeTier})`,
-    html: emailHtml(name, email, project, budget, answers, estimate, internal),
-    text,
-  });
-
-  if (error) {
-    console.error("Resend error:", error);
-    return NextResponse.json({ error: "Failed to send" }, { status: 500 });
-  }
-
-  // Best-effort confirmation to the visitor - never block the lead on this.
-  try {
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: "StackLabs <noreply@stacklabs.co.nz>",
-      to: email,
-      replyTo: "hello@stacklabs.co.nz",
-      subject: "Thanks - we've got your project",
-      html: confirmationHtml(name, estimate),
-      text: `Thanks, ${name} - we've got your project details and the rough estimate (${estimate.sizeTier}, ${estimate.timeline}). We'll be in touch soon.\n\nThis is a rough estimate, not a quote. Reply any time or reach us at hello@stacklabs.co.nz.\n\nStackLabs · stacklabs.co.nz`,
+      to: "hello@stacklabs.co.nz",
+      replyTo: email,
+      subject: `Project enquiry from ${name} (${estimate.sizeTier})`,
+      html: emailHtml(name, email, project, budget, answers, estimate, internal),
+      text,
     });
-  } catch (err) {
-    console.error("Confirmation email failed:", err);
-  }
+
+    if (error) {
+      console.error("Resend error:", error);
+    }
+
+    // Best-effort confirmation to the visitor.
+    try {
+      await resend.emails.send({
+        from: "StackLabs <noreply@stacklabs.co.nz>",
+        to: email,
+        replyTo: "hello@stacklabs.co.nz",
+        subject: "Thanks - we've got your project",
+        html: confirmationHtml(name, estimate),
+        text: `Thanks, ${name} - we've got your project details and the rough estimate (${estimate.sizeTier}, ${estimate.timeline}). We'll be in touch soon.\n\nThis is a rough estimate, not a quote. Reply any time or reach us at hello@stacklabs.co.nz.\n\nStackLabs · stacklabs.co.nz`,
+      });
+    } catch (err) {
+      console.error("Confirmation email failed:", err);
+    }
+  });
 
   return NextResponse.json({ success: true });
 }

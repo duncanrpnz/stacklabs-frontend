@@ -11,11 +11,6 @@ export interface CaseStudyMetric {
   label: string;
 }
 
-export interface CaseStudySection {
-  heading: string;
-  paragraphs: string[];
-}
-
 export interface CaseStudyImage {
   src: string;
   alt: string;
@@ -23,6 +18,20 @@ export interface CaseStudyImage {
   /** Aspect ratio as width/height, used to reserve layout space. */
   width: number;
   height: number;
+  /** "phone" renders as a narrow phone-framed shot instead of a browser window. */
+  variant?: "phone";
+}
+
+export interface CaseStudyImageBlock {
+  /** Zero-based index of the paragraph this block appears after. */
+  afterParagraph: number;
+  shot: CaseStudyImage;
+}
+
+export interface CaseStudySection {
+  heading: string;
+  paragraphs: string[];
+  imageBlocks?: CaseStudyImageBlock[];
 }
 
 export interface CaseStudy {
@@ -39,7 +48,6 @@ export interface CaseStudy {
   metrics?: CaseStudyMetric[];
   facts: CaseStudyFact[];
   sections: CaseStudySection[];
-  images?: CaseStudyImage[];
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -81,6 +89,30 @@ export const caseStudies: CaseStudy[] = [
           "SEO wasn't an afterthought. Each type of work James does — residential, commercial, heat pumps, EV chargers, solar — got its own page, written around what people actually search for. We also added the behind-the-scenes structured data that tells Google what the business does, where it works, and when it's open, and kept it in sync with his Google Business Profile so the map listing and the site say the same thing.",
           "His business details all live in one place in the code, so keeping the site up to date is a quick edit rather than a rebuild.",
         ],
+        imageBlocks: [
+          {
+            afterParagraph: 0,
+            shot: {
+              src: "/work/jp-electrics/home.webp",
+              alt: "JP Electrics homepage hero with the headline 'Trusted Hamilton & Waikato Master Electricians', a free quote button, and a photo of the JP Electrics ute on site",
+              caption:
+                "The homepage: who they are, where they work, and a way to get a quote - all in the first screen.",
+              width: 1840,
+              height: 1100,
+            },
+          },
+          {
+            afterParagraph: 1,
+            shot: {
+              src: "/work/jp-electrics/gallery.webp",
+              alt: "JP Electrics gallery page showing completed electrical work filtered by category - lighting design, bathrooms, heat pumps, solar and more",
+              caption:
+                "A filterable gallery of finished jobs. Nothing sells quality workmanship like photos of it.",
+              width: 1840,
+              height: 1300,
+            },
+          },
+        ],
       },
       {
         heading: "Ads while the SEO caught up",
@@ -94,6 +126,19 @@ export const caseStudies: CaseStudy[] = [
         paragraphs: [
           "It worked. Over about six months the site went from a few hundred Google impressions a day to closer to a thousand — roughly triple — as the SEO kicked in, for around 195,000 impressions in total.",
           "More to the point, it brought in work. Between the ads and the search growth, JP Electrics got over 200 leads — phone calls and messages through the contact form from people looking to hire.",
+        ],
+        imageBlocks: [
+          {
+            afterParagraph: 1,
+            shot: {
+              src: "/work/jp-electrics/contact.webp",
+              alt: "JP Electrics contact page with phone, email and address details alongside a simple contact form",
+              caption:
+                "The contact page - where a good chunk of those 200+ leads came through.",
+              width: 1840,
+              height: 1100,
+            },
+          },
         ],
       },
     ],
@@ -129,6 +174,52 @@ export const caseStudies: CaseStudy[] = [
           "The inspections themselves are built in a drag-and-drop editor, and they branch: the answer to one question decides what gets asked next, so a failed check digs into the detail while a pass just moves on. Inspectors take photos on their phone as they go.",
           "Once an inspection's done, InfraTrack builds the report and emails it to whoever needs it. Anything that gets flagged turns into a follow-up job that's tracked until it's sorted, and the whole lot exports to Excel.",
         ],
+        imageBlocks: [
+          {
+            afterParagraph: 0,
+            shot: {
+              src: "/work/infratrack/dashboard.webp",
+              alt: "InfraTrack dashboard showing asset health totals, a satellite map with asset pins, an asset list, and a recent inspection activity feed",
+              caption:
+                "The dashboard: every asset on a map with its health at a glance, and inspections rolling in on the right.",
+              width: 1838,
+              height: 1092,
+            },
+          },
+          {
+            afterParagraph: 1,
+            shot: {
+              src: "/work/infratrack/survey-builder.webp",
+              alt: "InfraTrack survey builder showing question nodes connected by branching logic between categories",
+              caption:
+                "The drag-and-drop survey builder. Answers decide what gets asked next - a failed check digs deeper, a pass moves on.",
+              width: 1843,
+              height: 1099,
+            },
+          },
+          {
+            afterParagraph: 1,
+            shot: {
+              src: "/work/infratrack/mobile-survey.webp",
+              alt: "InfraTrack inspection survey on a phone showing a multiple-choice question with an add photo button",
+              caption: "The same survey out in the field - one question at a time on a phone.",
+              width: 579,
+              height: 460,
+              variant: "phone",
+            },
+          },
+          {
+            afterParagraph: 2,
+            shot: {
+              src: "/work/infratrack/asset-detail.webp",
+              alt: "InfraTrack asset page for a timber water tank showing health status, inspection dates, remedial actions, documents, and asset details with a photo",
+              caption:
+                "An asset's page: health status, inspection dates, remedial actions and documents, all against the thing itself.",
+              width: 1851,
+              height: 1047,
+            },
+          },
+        ],
       },
       {
         heading: "The tricky parts",
@@ -136,31 +227,6 @@ export const caseStudies: CaseStudy[] = [
           "A lot of the build was shaped by the fact that several organisations share the platform, each with their own assets, surveys, and users, walled off from each other. The public inspection links were the fiddly bit. They had to be dead simple for someone standing out in a paddock, but still secure, still expire, and still be easy to shut off.",
           "It's a good example of what actually taking something to production involves. Not just the features, but the error monitoring, a clean way to deploy it, and the boring-but-important data model that makes sure a QR code on a tank always opens the right survey.",
         ],
-      },
-    ],
-    images: [
-      {
-        src: "/work/infratrack/dashboard.png",
-        alt: "InfraTrack dashboard showing asset health totals, a satellite map with asset pins, an asset list, and a recent inspection activity feed",
-        caption:
-          "The dashboard: every asset on a map with its health at a glance, and inspections rolling in on the right.",
-        width: 1335,
-        height: 1003,
-      },
-      {
-        src: "/work/infratrack/survey-builder.png",
-        alt: "InfraTrack survey builder showing question nodes connected by branching logic between categories",
-        caption:
-          "The drag-and-drop survey builder. Answers decide what gets asked next - a failed check digs deeper, a pass moves on.",
-        width: 1849,
-        height: 1124,
-      },
-      {
-        src: "/work/infratrack/login.png",
-        alt: "InfraTrack sign-in screen with the product wordmark and tagline",
-        caption: "Sign-in. Field inspectors skip this entirely - they get in through expiring QR links.",
-        width: 757,
-        height: 649,
       },
     ],
   },

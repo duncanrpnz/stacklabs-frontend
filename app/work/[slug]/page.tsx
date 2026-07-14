@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "../../components/Header";
@@ -93,30 +94,31 @@ export default async function CaseStudyPage({ params }: Props) {
               {study.sections.map((section) => (
                 <section key={section.heading}>
                   <h2>{section.heading}</h2>
-                  {section.paragraphs.map((p) => (
-                    <p key={p.slice(0, 40)}>{p}</p>
+                  {section.paragraphs.map((p, i) => (
+                    <Fragment key={p.slice(0, 40)}>
+                      <p>{p}</p>
+                      {section.imageBlocks
+                        ?.filter((block) => block.afterParagraph === i)
+                        .map(({ shot }) => (
+                          <figure
+                            className={`case-shot${shot.variant === "phone" ? " case-shot--phone" : ""}`}
+                            key={shot.src}
+                          >
+                            <img
+                              src={shot.src}
+                              alt={shot.alt}
+                              width={shot.width}
+                              height={shot.height}
+                              loading="lazy"
+                            />
+                            <figcaption>{shot.caption}</figcaption>
+                          </figure>
+                        ))}
+                    </Fragment>
                   ))}
                 </section>
               ))}
             </div>
-
-            {study.images && study.images.length > 0 && (
-              <div className="case-shots">
-                <h2 className="section-title">Inside the platform</h2>
-                {study.images.map((img) => (
-                  <figure className="case-shot" key={img.src}>
-                    <img
-                      src={img.src}
-                      alt={img.alt}
-                      width={img.width}
-                      height={img.height}
-                      loading="lazy"
-                    />
-                    <figcaption>{img.caption}</figcaption>
-                  </figure>
-                ))}
-              </div>
-            )}
 
             <div className="content-cta">
               <h2>Got something like this in mind?</h2>
