@@ -18,6 +18,7 @@ export default function Footer() {
           <Link href="/#services">Services</Link>
           <Link href="/work">Work</Link>
           <Link href="/how-much-does-software-cost">Pricing</Link>
+          <Link href="/insights">Insights</Link>
           <Link href="/#process">Process</Link>
           <Link href="/#about">About</Link>
           <a href="mailto:hello@stacklabs.co.nz">Contact</a>

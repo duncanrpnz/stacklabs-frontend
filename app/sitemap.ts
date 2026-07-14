@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { services } from "./lib/services";
 import { caseStudies } from "./lib/work";
+import { insightPosts } from "./lib/insights";
 
 const BASE = "https://stacklabs.co.nz";
 
@@ -39,6 +40,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...caseStudies.map((c) => ({
       url: `${BASE}/work/${c.slug}`,
       lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.7,
+    })),
+    {
+      url: `${BASE}/insights`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    ...insightPosts.map((p) => ({
+      url: `${BASE}/insights/${p.slug}`,
+      lastModified: new Date(p.published),
       changeFrequency: "yearly" as const,
       priority: 0.7,
     })),

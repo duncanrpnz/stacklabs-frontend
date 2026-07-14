@@ -37,6 +37,9 @@ export default function Header() {
           <Link href="/work" onClick={() => setOpen(false)}>
             Work
           </Link>
+          <Link href="/insights" onClick={() => setOpen(false)}>
+            Insights
+          </Link>
           <Link href="/#process" onClick={() => setOpen(false)}>
             Process
           </Link>

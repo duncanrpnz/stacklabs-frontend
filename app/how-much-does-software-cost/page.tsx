@@ -147,6 +147,14 @@ export default function CostGuidePage() {
                   workflows badly.
                 </p>
                 <p>
+                  The other half of keeping cost down is scoping well before you ask
+                  anyone for a number — we&apos;ve written a separate guide on{" "}
+                  <Link href="/insights/how-to-scope-a-software-project">
+                    how to scope a software project
+                  </Link>{" "}
+                  so the quotes you get actually mean something.
+                </p>
+                <p>
                   This is exactly what our{" "}
                   <Link href="/services/rapid-prototyping">rapid prototyping</Link> engagements
                   are for: the smallest build that can test the idea, so the bigger spend only
