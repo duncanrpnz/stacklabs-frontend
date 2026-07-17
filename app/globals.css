@@ -400,7 +400,16 @@ img {
   overflow: hidden;
 }
 
+/* The grid draws its dividers as 1px gaps over a border-coloured background,
+   so a card shorter than its row would let that background show through as a
+   stray bar. The reveal wrapper is the grid item - the card has to fill it. */
+.services-grid .reveal {
+  height: 100%;
+}
+
 .service-card {
+  display: block;
+  height: 100%;
   padding: 2.25rem 2rem;
   background: var(--bg);
   transition: background 0.2s;
@@ -435,6 +444,30 @@ img {
 }
 
 /* ─── Process ────────────────────────────────── */
+
+.work-section {
+  padding: 5.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* On the homepage the list is followed by a link out, so it drops the
+   bottom margin it carries on /work. */
+.work-section .work-list {
+  margin-bottom: 2rem;
+}
+
+.work-section-more {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.work-section-more:hover {
+  transform: translateX(3px);
+}
 
 .process {
   padding: 5.5rem 0;
@@ -1499,7 +1532,8 @@ a.work-card:hover::before {
   border-left: 1px solid var(--border);
 }
 
-.work-card h2 {
+.work-card h2,
+.work-card h3 {
   font-size: 1.4rem;
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -1536,6 +1570,46 @@ a.work-card:hover::before {
 
 a.work-card:hover .work-card-more {
   transform: translateX(3px);
+}
+
+/* Compact results row inside a work card - the full-size version is
+   .case-metrics on the case study page itself. */
+.work-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  list-style: none;
+  margin: 0 0 1.4rem;
+  padding: 0;
+}
+
+.work-metric-value {
+  display: block;
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.work-metric-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.4;
+  max-width: 18ch;
+}
+
+/* A single case study used as proof on a service page. The category is the
+   only chip here, so it drops the divider it wears next to an index number. */
+.content-proof {
+  margin: 0 0 3rem;
+}
+
+.content-proof .work-card-category {
+  padding-left: 0;
+  border-left: 0;
 }
 
 /* ─── Case study detail ──────────────────────── */

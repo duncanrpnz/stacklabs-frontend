@@ -111,9 +111,10 @@ export default function Hero() {
           to production.
         </h1>
         <p className="hero-lead">
-          StackLabs is a small software development studio. We work with
-          founders and teams who need to build real software, with someone
-          who&apos;ll be straight with them about how to do it.
+          StackLabs is a small software development studio. We build websites
+          for New Zealand businesses, and custom software for founders and
+          teams - either way, with someone who&apos;ll be straight with you
+          about how to do it.
         </p>
         <div className="hero-actions">
           <Link className="btn btn-primary" href="/estimate">

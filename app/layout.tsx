@@ -13,16 +13,16 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "StackLabs Ltd | Software Development, Cambridge NZ",
+    default: "StackLabs Ltd | Software & Website Development, Cambridge NZ",
     template: "%s | StackLabs",
   },
   description:
-    "StackLabs is a small software development studio based in Cambridge, New Zealand. We build prototypes and production systems for founders and growing teams.",
+    "StackLabs is a small software development studio in Cambridge, New Zealand. We build websites for NZ businesses, and prototypes and production software for founders and growing teams.",
   metadataBase: new URL(SITE_URL),
   openGraph: {
-    title: "StackLabs Ltd | Software Development, Cambridge NZ",
+    title: "StackLabs Ltd | Software & Website Development, Cambridge NZ",
     description:
-      "StackLabs is a small software development studio based in Cambridge, New Zealand. We build prototypes and production systems for founders and growing teams.",
+      "StackLabs is a small software development studio in Cambridge, New Zealand. We build websites for NZ businesses, and prototypes and production software for founders and growing teams.",
     url: SITE_URL,
     siteName: "StackLabs",
     locale: "en_NZ",
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "StackLabs Ltd | Software Development, Cambridge NZ",
+    title: "StackLabs Ltd | Software & Website Development, Cambridge NZ",
     description:
-      "StackLabs is a small software development studio based in Cambridge, New Zealand. We build prototypes and production systems for founders and growing teams.",
+      "StackLabs is a small software development studio in Cambridge, New Zealand. We build websites for NZ businesses, and prototypes and production software for founders and growing teams.",
   },
 };
 
@@ -48,7 +48,7 @@ export default function RootLayout({
     url: SITE_URL,
     email: "hello@stacklabs.co.nz",
     description:
-      "Small software development studio in Cambridge, New Zealand. We build prototypes and production systems for founders and growing teams.",
+      "Small software development studio in Cambridge, New Zealand. We build websites for NZ businesses, and prototypes and production software for founders and growing teams.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Cambridge",
@@ -61,9 +61,9 @@ export default function RootLayout({
       "@type": "OfferCatalog",
       name: "Software Development Services",
       itemListElement: [
+        "Websites",
         "Rapid Prototyping",
         "Prototype to Production",
-        "Product Strategy",
         "Technical Leadership",
       ],
     },

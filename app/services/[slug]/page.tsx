@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { services, getService } from "../../lib/services";
+import { getCaseStudy } from "../../lib/work";
 import { SITE_URL, url } from "../../lib/site";
 
 interface Props {
@@ -46,6 +47,9 @@ export default async function ServicePage({ params }: Props) {
   };
 
   const others = services.filter((s) => s.slug !== service.slug);
+  const caseStudy = service.caseStudySlug
+    ? getCaseStudy(service.caseStudySlug)
+    : undefined;
 
   return (
     <>
@@ -74,6 +78,31 @@ export default async function ServicePage({ params }: Props) {
                 </section>
               ))}
             </div>
+
+            {caseStudy && (
+              <div className="content-proof">
+                <h2 className="section-title">What this looks like</h2>
+                <Link href={`/work/${caseStudy.slug}`} className="work-card">
+                  <div className="work-card-top">
+                    <span className="work-card-category">{caseStudy.category}</span>
+                  </div>
+                  <h3>{caseStudy.name}</h3>
+                  <p className="work-card-headline">{caseStudy.headline}</p>
+                  <p className="work-card-blurb">{caseStudy.card}</p>
+                  {caseStudy.metrics && (
+                    <ul className="work-metrics" aria-label="Results">
+                      {caseStudy.metrics.map((m) => (
+                        <li key={m.label}>
+                          <span className="work-metric-value">{m.value}</span>
+                          <span className="work-metric-label">{m.label}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <span className="work-card-more">Read the case study →</span>
+                </Link>
+              </div>
+            )}
 
             <div className="content-asides">
               <div className="aside-block">

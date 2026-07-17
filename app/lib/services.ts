@@ -18,12 +18,59 @@ export interface Service {
   sections: ServiceSection[];
   goodFit: string[];
   deliverables: string[];
+  /** Slug of a case study in work.ts that shows this service in practice. */
+  caseStudySlug?: string;
 }
 
 export const services: Service[] = [
   {
-    slug: "rapid-prototyping",
+    slug: "websites",
     num: "01",
+    title: "Websites",
+    metaTitle: "Website Design & Development, Hamilton & Waikato",
+    metaDescription:
+      "StackLabs builds fast, good-looking websites for New Zealand businesses - built to show up on Google and turn visitors into phone calls. Based in Cambridge, Waikato.",
+    card: "A fast, good-looking website that shows up when people search for what you do. Built to bring work in, not just to sit there looking tidy.",
+    lead: "For most businesses the website is the first thing a customer sees, and the reason they either ring you or ring someone else. We build sites that load fast, look the part, and turn up on Google when someone nearby is looking for what you do.",
+    timeline: "Typically 2–6 weeks",
+    caseStudySlug: "jp-electrics",
+    sections: [
+      {
+        heading: "What it is",
+        paragraphs: [
+          "A website that does a job. For a lot of businesses - trades, clinics, consultants, anyone who gets work locally - that job is simple: show up when someone searches, look trustworthy enough that they get in touch, and make getting in touch easy.",
+          "We build them as proper custom sites rather than a dragged-together template. That means they load fast, they work properly on a phone, and you're not paying a monthly fee to a page builder forever. Static hosting for a site like this costs close to nothing to run.",
+        ],
+      },
+      {
+        heading: "Showing up on Google",
+        paragraphs: [
+          "SEO isn't a bolt-on at the end, it's most of the reason the site exists. Each thing you do gets its own page, written around what people actually type into Google rather than what you'd call it internally. Behind the scenes we add the structured data that tells Google what your business does, where it works and when it's open, and keep it in sync with your Google Business Profile so the map listing and the site agree.",
+          "Rankings take months to build, though. If you need the phone to ring sooner than that, Google Ads can cover the gap while the organic side catches up - that's what we did for JP Electrics, and it's usually the right call when you're starting from nothing.",
+        ],
+      },
+      {
+        heading: "How it works",
+        paragraphs: [
+          "We start by working out who you're trying to reach and what they search for. Then we write the pages around that, build the site, and get it live. You see it as it comes together rather than at a big reveal at the end.",
+          "Your business details live in one place in the code, so changing your hours or adding a service is a quick edit, not a rebuild. You own the site and everything in it.",
+        ],
+      },
+    ],
+    goodFit: [
+      "Local businesses who get most of their work through Google searches",
+      "Anyone stuck on a slow, dated site that never turns up in results",
+      "Businesses paying monthly for a page builder they've outgrown",
+    ],
+    deliverables: [
+      "A fast custom site you own outright, built to rank",
+      "A page for each service, written around real search terms",
+      "Structured data and Google Business Profile kept in sync",
+    ],
+  },
+  {
+    slug: "rapid-prototyping",
+    num: "02",
     title: "Rapid Prototyping",
     metaTitle: "Rapid Prototyping & MVP Development",
     metaDescription:
@@ -66,7 +113,7 @@ export const services: Service[] = [
   },
   {
     slug: "prototype-to-production",
-    num: "02",
+    num: "03",
     title: "Prototype to Production",
     metaTitle: "Prototype to Production Development",
     metaDescription:
@@ -106,43 +153,7 @@ export const services: Service[] = [
       "Monitoring and alerting appropriate to your stakes",
       "Documentation and a codebase another developer could pick up",
     ],
-  },
-  {
-    slug: "product-strategy",
-    num: "03",
-    title: "Product Strategy",
-    metaTitle: "Product Strategy for Software Teams",
-    metaDescription:
-      "StackLabs helps NZ founders and teams work out what to build next and why - so engineering effort goes into the work that actually moves the product forward.",
-    card: "Sometimes the problem isn't the code, it's the roadmap. We help teams work out what to build next and why, so engineering effort goes toward work that actually matters.",
-    lead: "Sometimes the problem isn't the code, it's the roadmap. We help you work out what to build next and why, so engineering effort goes into work that actually matters.",
-    timeline: "From a one-off session to ongoing involvement",
-    sections: [
-      {
-        heading: "What it is",
-        paragraphs: [
-          "Most teams don't have a shortage of ideas - they have a shortage of confidence about which idea to do first. Product strategy work is about turning a pile of possibilities into a sequenced plan with reasons attached.",
-          "Because we build software ourselves, the advice stays honest about cost. A roadmap is only useful if each step on it is actually buildable in the time and budget you have.",
-        ],
-      },
-      {
-        heading: "How it works",
-        paragraphs: [
-          "It usually starts with a working session: what you're trying to achieve commercially, what you've built so far, what's in the backlog, and what your users are actually doing. From there we help you cut the list, sequence it, and - just as important - write down what you're deliberately not doing and why.",
-          "Some clients need one session to get unstuck. Others keep us involved as a sounding board, revisiting the plan as real usage data comes in.",
-        ],
-      },
-    ],
-    goodFit: [
-      "Founders with more ideas than budget who need to sequence ruthlessly",
-      "Teams where engineering is busy but the product isn't moving forward",
-      "Businesses deciding between fixing what exists and building something new",
-    ],
-    deliverables: [
-      "A sequenced roadmap with the reasoning written down",
-      "Clear scope for the next build phase, ready to estimate",
-      "An explicit list of what you're not doing, and why",
-    ],
+    caseStudySlug: "infratrack",
   },
   {
     slug: "technical-leadership",
