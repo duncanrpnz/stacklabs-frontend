@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SITE_URL } from "./lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -17,12 +18,12 @@ export const metadata: Metadata = {
   },
   description:
     "StackLabs is a small software development studio based in Cambridge, New Zealand. We build prototypes and production systems for founders and growing teams.",
-  metadataBase: new URL("https://stacklabs.co.nz"),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     title: "StackLabs Ltd | Software Development, Cambridge NZ",
     description:
       "StackLabs is a small software development studio based in Cambridge, New Zealand. We build prototypes and production systems for founders and growing teams.",
-    url: "https://stacklabs.co.nz",
+    url: SITE_URL,
     siteName: "StackLabs",
     locale: "en_NZ",
     type: "website",
@@ -44,7 +45,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "ProfessionalService"],
     name: "StackLabs Ltd",
-    url: "https://stacklabs.co.nz",
+    url: SITE_URL,
     email: "hello@stacklabs.co.nz",
     description:
       "Small software development studio in Cambridge, New Zealand. We build prototypes and production systems for founders and growing teams.",

@@ -2,8 +2,9 @@ import type { MetadataRoute } from "next";
 import { services } from "./lib/services";
 import { caseStudies } from "./lib/work";
 import { insightPosts } from "./lib/insights";
+import { SITE_URL } from "./lib/site";
 
-const BASE = "https://stacklabs.co.nz";
+const BASE = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

@@ -6,6 +6,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { insightPosts, getInsightPost, formatInsightDate } from "../../lib/insights";
 import { priceTiers } from "../../lib/pricing";
+import { SITE_URL, url } from "../../lib/site";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -62,9 +63,9 @@ export default async function InsightPostPage({ params }: Props) {
       author: {
         "@type": "Organization",
         name: "StackLabs",
-        url: "https://stacklabs.co.nz",
+        url: SITE_URL,
       },
-      mainEntityOfPage: `https://stacklabs.co.nz/insights/${post.slug}`,
+      mainEntityOfPage: url(`/insights/${post.slug}`),
     },
   ];
   if (post.faqs && post.faqs.length > 0) {

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { services, getService } from "../../lib/services";
+import { SITE_URL, url } from "../../lib/site";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -34,13 +35,13 @@ export default async function ServicePage({ params }: Props) {
     "@type": "Service",
     name: service.title,
     description: service.metaDescription,
-    url: `https://stacklabs.co.nz/services/${service.slug}`,
+    url: url(`/services/${service.slug}`),
     serviceType: service.title,
     areaServed: "New Zealand",
     provider: {
       "@type": "LocalBusiness",
       name: "StackLabs Ltd",
-      url: "https://stacklabs.co.nz",
+      url: SITE_URL,
     },
   };
 

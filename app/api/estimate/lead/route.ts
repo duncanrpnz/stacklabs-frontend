@@ -9,6 +9,7 @@ import {
 } from "../../../lib/estimate";
 import { guardLead, tryConsumeGlobalAi } from "../../../lib/rate-limit";
 import { saveLead } from "../../../lib/leads";
+import { SITE_URL, url } from "../../../lib/site";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -68,7 +69,7 @@ function emailHtml(name: string, email: string, project: string, budget: string,
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
         <tr><td style="padding-bottom:32px;">
-          <img src="https://stacklabs.co.nz/email/stacklabs-wordmark-dark.png" width="146" height="20" alt="StackLabs" style="display:block;border:0;" />
+          <img src="${url("/email/stacklabs-wordmark-dark.png")}" width="146" height="20" alt="StackLabs" style="display:block;border:0;" />
         </td></tr>
         <tr><td style="background:#323a52;border:1px solid rgba(255,255,255,0.14);border-radius:14px;padding:36px;">
           <p style="margin:0 0 8px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#5B7FF0;">Project enquiry · ${esc(estimate.sizeTier)} · ${esc(estimate.timeline)}</p>
@@ -98,7 +99,7 @@ function emailHtml(name: string, email: string, project: string, budget: string,
           </table>
         </td></tr>
         <tr><td style="padding-top:24px;">
-          <p style="margin:0;font-size:12px;color:#aeb8cc;">Sent from the project estimator at <a href="https://stacklabs.co.nz" style="color:#aeb8cc;">stacklabs.co.nz</a>. Size and timeline are AI-generated estimates.</p>
+          <p style="margin:0;font-size:12px;color:#aeb8cc;">Sent from the project estimator at <a href="${SITE_URL}" style="color:#aeb8cc;">stacklabs.co.nz</a>. Size and timeline are AI-generated estimates.</p>
         </td></tr>
       </table>
     </td></tr>
@@ -115,7 +116,7 @@ function confirmationHtml(name: string, estimate: Estimate) {
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
         <tr><td style="padding-bottom:32px;">
-          <img src="https://stacklabs.co.nz/email/stacklabs-wordmark-dark.png" width="146" height="20" alt="StackLabs" style="display:block;border:0;" />
+          <img src="${url("/email/stacklabs-wordmark-dark.png")}" width="146" height="20" alt="StackLabs" style="display:block;border:0;" />
         </td></tr>
         <tr><td style="background:#323a52;border:1px solid rgba(255,255,255,0.14);border-radius:14px;padding:36px;">
           <h1 style="margin:0 0 16px;font-size:22px;font-weight:700;color:#f2f4f9;letter-spacing:-0.4px;">Thanks, ${esc(name)} - we've got it.</h1>
@@ -130,7 +131,7 @@ function confirmationHtml(name: string, estimate: Estimate) {
           <p style="margin:0;font-size:15px;line-height:1.7;color:#cdd5e4;">Anything to add in the meantime? Just reply to this email or reach us at <a href="mailto:hello@stacklabs.co.nz" style="color:#5B7FF0;text-decoration:none;">hello@stacklabs.co.nz</a>.</p>
         </td></tr>
         <tr><td style="padding-top:24px;">
-          <p style="margin:0;font-size:12px;color:#aeb8cc;">StackLabs · Cambridge, New Zealand · <a href="https://stacklabs.co.nz" style="color:#aeb8cc;">stacklabs.co.nz</a></p>
+          <p style="margin:0;font-size:12px;color:#aeb8cc;">StackLabs · Cambridge, New Zealand · <a href="${SITE_URL}" style="color:#aeb8cc;">stacklabs.co.nz</a></p>
         </td></tr>
       </table>
     </td></tr>

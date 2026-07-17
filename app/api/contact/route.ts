@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { SITE_URL, url } from "../../lib/site";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -23,7 +24,7 @@ function emailHtml(name: string, email: string, project: string) {
           <!-- Header -->
           <tr>
             <td style="padding-bottom:32px;">
-              <img src="https://stacklabs.co.nz/email/stacklabs-wordmark-dark.png" width="146" height="20" alt="StackLabs" style="display:block;border:0;" />
+              <img src="${url("/email/stacklabs-wordmark-dark.png")}" width="146" height="20" alt="StackLabs" style="display:block;border:0;" />
             </td>
           </tr>
 
@@ -65,7 +66,7 @@ function emailHtml(name: string, email: string, project: string) {
             <td style="padding-top:24px;">
               <p style="margin:0;font-size:12px;color:#aeb8cc;">
                 Sent from the contact form at
-                <a href="https://stacklabs.co.nz" style="color:#aeb8cc;">stacklabs.co.nz</a>
+                <a href="${SITE_URL}" style="color:#aeb8cc;">stacklabs.co.nz</a>
               </p>
             </td>
           </tr>
