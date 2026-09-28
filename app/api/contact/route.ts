@@ -103,7 +103,7 @@ export async function POST(req: Request) {
 
   const { error } = await resend.emails.send({
     from: "StackLabs <noreply@stacklabs.co.nz>",
-    to: "hello@stacklabs.co.nz",
+    to: "duncan@stacklabs.co.nz",
     replyTo: email,
     subject: `New enquiry from ${name}`,
     html: emailHtml(name, email, project ?? ""),

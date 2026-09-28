@@ -265,7 +265,7 @@ ${estimate.summary}`;
 
   const { error } = await resend.emails.send({
     from: "StackLabs <noreply@stacklabs.co.nz>",
-    to: "hello@stacklabs.co.nz",
+    to: "duncan@stacklabs.co.nz",
     replyTo: email,
     subject: `Project enquiry from ${name} (${estimate.sizeTier})`,
     html: emailHtml(name, email, project, budget, answers, estimate, internal),
