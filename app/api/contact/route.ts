@@ -1,5 +1,7 @@
+import { randomUUID } from "node:crypto";
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { sendLeadToAdmin } from "../../lib/admin-leads";
 import { SITE_URL, url } from "../../lib/site";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -84,6 +86,19 @@ export async function POST(req: Request) {
 
   if (!name || !email) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+  }
+
+  // The admin app stores the lead and emails a short notice linking to it.
+  // Only if that fails does the full enquiry get emailed instead.
+  const sent = await sendLeadToAdmin({
+    externalId: randomUUID(),
+    source: "contact",
+    name: String(name),
+    email: String(email),
+    project: project ? String(project) : undefined,
+  });
+  if (sent) {
+    return NextResponse.json({ success: true });
   }
 
   const { error } = await resend.emails.send({

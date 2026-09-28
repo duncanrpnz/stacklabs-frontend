@@ -2,6 +2,8 @@ import { redis } from "./redis";
 import type { Estimate, InternalEstimate, QA } from "./estimate";
 
 export interface LeadRecord {
+  /** Also sent to the admin app, so a lead can be matched up across both. */
+  externalId: string;
   name: string;
   email: string;
   project: string;

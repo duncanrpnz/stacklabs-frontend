@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { Resend } from "resend";
 import { NextResponse, after } from "next/server";
 import {
@@ -9,6 +10,7 @@ import {
 } from "../../../lib/estimate";
 import { guardLead, tryConsumeGlobalAi } from "../../../lib/rate-limit";
 import { saveLead } from "../../../lib/leads";
+import { sendLeadToAdmin } from "../../../lib/admin-leads";
 import { SITE_URL, url } from "../../../lib/site";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -174,9 +176,10 @@ export async function POST(req: Request) {
   }
 
   // Persist immediately so the lead is never lost, then respond to the
-  // visitor right away. The internal price (LLM call) and emails run after
-  // the response is sent.
-  await saveLead({ name, email, project, budget, answers, estimate, internal: null });
+  // visitor right away. The internal price (LLM call), the send to the admin
+  // app and the emails run after the response is sent.
+  const externalId = randomUUID();
+  await saveLead({ externalId, name, email, project, budget, answers, estimate, internal: null });
 
   after(async () => {
     // Generate the internal price server-side. Never returned to the client - only emailed.
@@ -190,41 +193,22 @@ export async function POST(req: Request) {
       }
     }
 
-    const internalText = internal
-      ? `INTERNAL - not shown to the client
-Suggested price: ${internal.priceRangeNzd}
-Effort: ${internal.effort} (${internal.confidence} confidence)
-Rationale: ${internal.rationale}
-Risks:
-${internal.risks.map((r) => `- ${r}`).join("\n")}`
-      : `INTERNAL - price estimate could not be generated; work it out manually.`;
-
-    const text = `Project enquiry from ${name} (${email})
-Budget: ${budget || "Not provided"}
-Estimated size: ${estimate.sizeTier} - ${estimate.timeline}
-
-${internalText}
-
-Project:
-${project}
-
-Answers:
-${answers.map((a) => `${a.question}\n${a.answer || "(no answer)"}`).join("\n\n")}
-
-AI summary:
-${estimate.summary}`;
-
-    const { error } = await resend.emails.send({
-      from: "StackLabs <noreply@stacklabs.co.nz>",
-      to: "hello@stacklabs.co.nz",
-      replyTo: email,
-      subject: `Project enquiry from ${name} (${estimate.sizeTier})`,
-      html: emailHtml(name, email, project, budget, answers, estimate, internal),
-      text,
+    // The admin app stores the lead and emails a short notice linking to it.
+    // Only if that fails does the full detail email below go to StackLabs.
+    const sent = await sendLeadToAdmin({
+      externalId,
+      source: "estimator",
+      name,
+      email,
+      project,
+      budget,
+      answers,
+      estimate,
+      internalEstimate: internal,
     });
 
-    if (error) {
-      console.error("Resend error:", error);
+    if (!sent) {
+      await sendDetailEmail(name, email, project, budget, answers, estimate, internal);
     }
 
     // Best-effort confirmation to the visitor.
@@ -243,4 +227,52 @@ ${estimate.summary}`;
   });
 
   return NextResponse.json({ success: true });
+}
+
+/** The full enquiry, emailed to StackLabs when the admin app can't be reached. */
+async function sendDetailEmail(
+  name: string,
+  email: string,
+  project: string,
+  budget: string,
+  answers: QA[],
+  estimate: Estimate,
+  internal: InternalEstimate | null,
+) {
+  const internalText = internal
+    ? `INTERNAL - not shown to the client
+Suggested price: ${internal.priceRangeNzd}
+Effort: ${internal.effort} (${internal.confidence} confidence)
+Rationale: ${internal.rationale}
+Risks:
+${internal.risks.map((r) => `- ${r}`).join("\n")}`
+    : `INTERNAL - price estimate could not be generated; work it out manually.`;
+
+  const text = `Project enquiry from ${name} (${email})
+Budget: ${budget || "Not provided"}
+Estimated size: ${estimate.sizeTier} - ${estimate.timeline}
+
+${internalText}
+
+Project:
+${project}
+
+Answers:
+${answers.map((a) => `${a.question}\n${a.answer || "(no answer)"}`).join("\n\n")}
+
+AI summary:
+${estimate.summary}`;
+
+  const { error } = await resend.emails.send({
+    from: "StackLabs <noreply@stacklabs.co.nz>",
+    to: "hello@stacklabs.co.nz",
+    replyTo: email,
+    subject: `Project enquiry from ${name} (${estimate.sizeTier})`,
+    html: emailHtml(name, email, project, budget, answers, estimate, internal),
+    text,
+  });
+
+  if (error) {
+    console.error("Resend error:", error);
+  }
 }
