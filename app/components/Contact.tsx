@@ -44,8 +44,8 @@ export default function Contact() {
             set up a call.
           </p>
           <div className="contact-meta">
-            <a href="mailto:hello@stacklabs.co.nz" className="contact-link">
-              hello@stacklabs.co.nz
+            <a href="mailto:duncan@stacklabs.co.nz" className="contact-link">
+              duncan@stacklabs.co.nz
             </a>
           </div>
         </div>

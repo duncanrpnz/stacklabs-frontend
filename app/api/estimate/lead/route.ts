@@ -130,7 +130,7 @@ function confirmationHtml(name: string, estimate: Estimate) {
             </td></tr>
           </table>
           <p style="margin:0 0 24px;font-size:13px;line-height:1.6;color:#aeb8cc;">This is a rough, automated estimate to set expectations - not a quote. Real numbers come after a proper conversation.</p>
-          <p style="margin:0;font-size:15px;line-height:1.7;color:#cdd5e4;">Anything to add in the meantime? Just reply to this email or reach us at <a href="mailto:hello@stacklabs.co.nz" style="color:#5B7FF0;text-decoration:none;">hello@stacklabs.co.nz</a>.</p>
+          <p style="margin:0;font-size:15px;line-height:1.7;color:#cdd5e4;">Anything to add in the meantime? Just reply to this email or reach us at <a href="mailto:duncan@stacklabs.co.nz" style="color:#5B7FF0;text-decoration:none;">duncan@stacklabs.co.nz</a>.</p>
         </td></tr>
         <tr><td style="padding-top:24px;">
           <p style="margin:0;font-size:12px;color:#aeb8cc;">StackLabs · Cambridge, New Zealand · <a href="${SITE_URL}" style="color:#aeb8cc;">stacklabs.co.nz</a></p>
@@ -214,12 +214,12 @@ export async function POST(req: Request) {
     // Best-effort confirmation to the visitor.
     try {
       await resend.emails.send({
-        from: "StackLabs <noreply@stacklabs.co.nz>",
+        from: "StackLabs <duncan@stacklabs.co.nz>",
         to: email,
-        replyTo: "hello@stacklabs.co.nz",
+        replyTo: "duncan@stacklabs.co.nz",
         subject: "Thanks - we've got your project",
         html: confirmationHtml(name, estimate),
-        text: `Thanks, ${name} - we've got your project details and the rough estimate (${estimate.sizeTier}, ${estimate.timeline}). We'll be in touch soon.\n\nThis is a rough estimate, not a quote. Reply any time or reach us at hello@stacklabs.co.nz.\n\nStackLabs · stacklabs.co.nz`,
+        text: `Thanks, ${name} - we've got your project details and the rough estimate (${estimate.sizeTier}, ${estimate.timeline}). We'll be in touch soon.\n\nThis is a rough estimate, not a quote. Reply any time or reach us at duncan@stacklabs.co.nz.\n\nStackLabs · stacklabs.co.nz`,
       });
     } catch (err) {
       console.error("Confirmation email failed:", err);
@@ -264,7 +264,7 @@ AI summary:
 ${estimate.summary}`;
 
   const { error } = await resend.emails.send({
-    from: "StackLabs <noreply@stacklabs.co.nz>",
+    from: "StackLabs <duncan@stacklabs.co.nz>",
     to: "duncan@stacklabs.co.nz",
     replyTo: email,
     subject: `Project enquiry from ${name} (${estimate.sizeTier})`,

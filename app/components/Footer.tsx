@@ -21,7 +21,7 @@ export default function Footer() {
           <Link href="/insights">Insights</Link>
           <Link href="/#process">Process</Link>
           <Link href="/#about">About</Link>
-          <a href="mailto:hello@stacklabs.co.nz">Contact</a>
+          <a href="mailto:duncan@stacklabs.co.nz">Contact</a>
         </nav>
         <p className="footer-copy">© 2025 StackLabs Ltd, Cambridge NZ</p>
       </div>

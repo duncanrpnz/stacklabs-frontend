@@ -349,8 +349,8 @@ export default function EstimateFlow() {
               <p className="estimate-sub">
                 We&apos;ve got your project details and the estimate. We&apos;ll be in touch soon to
                 take it further. In the meantime you can reach us at{" "}
-                <a href="mailto:hello@stacklabs.co.nz" className="contact-link">
-                  hello@stacklabs.co.nz
+                <a href="mailto:duncan@stacklabs.co.nz" className="contact-link">
+                  duncan@stacklabs.co.nz
                 </a>
                 .
               </p>

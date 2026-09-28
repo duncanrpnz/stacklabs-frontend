@@ -46,7 +46,7 @@ export default function RootLayout({
     "@type": ["LocalBusiness", "ProfessionalService"],
     name: "StackLabs Ltd",
     url: SITE_URL,
-    email: "hello@stacklabs.co.nz",
+    email: "duncan@stacklabs.co.nz",
     description:
       "Small software development studio in Cambridge, New Zealand. We build websites for NZ businesses, and prototypes and production software for founders and growing teams.",
     address: {
